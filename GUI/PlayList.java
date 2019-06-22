@@ -16,5 +16,9 @@ public class PlayList extends JPanel {
             this.add(Box.createRigidArea(new Dimension(0,EMPTY_SPACE)));
         }
     }
-
+    public void addPlayList(String name){
+        JLabel temp = new JLabel(name);
+        this.add(temp);
+        playList.add(temp);
+    }
 }
