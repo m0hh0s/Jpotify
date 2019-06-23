@@ -1,10 +1,7 @@
 package GUI;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class LibraryAndPlayListArea extends JPanel {
@@ -17,7 +14,6 @@ public class LibraryAndPlayListArea extends JPanel {
     private JButton plusLabelForSong = new JButton();
     private JButton plusLabelForPlayList = new JButton();
     private JLabel yourLibraryHead = new JLabel();
-    private JLabel img = new JLabel();
     private JButton recentlyPlayed = new JButton();
     private JButton songs = new JButton();
     private JButton albums = new JButton();
@@ -43,7 +39,6 @@ public class LibraryAndPlayListArea extends JPanel {
         prepareButtonToAdd(playListButton,"PlayList");
         prepareScrollToAdd(playListScroll,"PLAYLIST");
         this.setLayout(boxLayout);
-        setImageIcon("SongImage.png",img);
         firstGridPanel.setMaximumSize(new Dimension(140,20));
         firstAndHalfGridPanel.setMaximumSize(new Dimension(140,20));
         secondGridPanel.setMaximumSize(new Dimension(140,20));
@@ -63,7 +58,7 @@ public class LibraryAndPlayListArea extends JPanel {
         this.add(secondGridPanel);
         this.add(playListScroll);
         thirdGridPanel.add(plusLabelForPlayList);
-        forthGridPanel.add(img);
+//        forthGridPanel.add(img);
         this.add(thirdGridPanel);
         this.add(forthGridPanel);
 
@@ -102,12 +97,5 @@ public class LibraryAndPlayListArea extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setColumnHeaderView(new JLabel(name));
     }
-    private void setImageIcon(String path, JLabel label) throws IOException {
-        BufferedImage img = ImageIO.read(new File(path));
-        BufferedImage finalImg = new BufferedImage(140,140,img.getType());
-        Graphics2D graphics2D = finalImg.createGraphics();
-        graphics2D.drawImage(img,0,0,140,140,null);
-        graphics2D.dispose();
-        label.setIcon(new ImageIcon(finalImg));
-    }
+
 }
