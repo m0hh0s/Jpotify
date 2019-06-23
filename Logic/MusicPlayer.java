@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class MusicPlayer {
     private static volatile AdvancedPlayer player = null;
     private static volatile FileInputStream fis = null;
-    private static volatile long pauseLocation = 0;
+    private static volatile BufferedInputStream bis = null;
+    private static volatile long remainingBytes = 0;
     private static volatile long songTotalLength = 0;
     private static Thread playingThread;
     private static volatile boolean onPause;
@@ -33,7 +34,7 @@ public class MusicPlayer {
         isPlaying = false;
     }
 
-    public static void resume(ArrayList<Song> songsToBePlayed) {
+    public static void resume() {
         onPause = false;
         isPlaying = true;
         synchronized (player) {
@@ -55,7 +56,10 @@ public class MusicPlayer {
                     try {
                         currentlyPlaying = songsToBePlayed.get(i);
                         fis = new FileInputStream(currentlyPlaying.getSongAddress());
-                        player = new AdvancedPlayer(fis);
+                        bis = new BufferedInputStream(fis);
+                        songTotalLength = bis.available();
+                        bis.mark(Integer.MAX_VALUE);
+                        player = new AdvancedPlayer(bis);
                         while (player.play(1)) {
                             if (onPause) {
                                 synchronized (player) {
@@ -63,7 +67,7 @@ public class MusicPlayer {
                                 }
                             }
                         }
-                    } catch (FileNotFoundException | JavaLayerException | InterruptedException e) {
+                    } catch (JavaLayerException | InterruptedException | IOException e) {
                         e.printStackTrace();
                     }
                     if (isOnLoop && (i == songsToBePlayed.size() - 1) ){
@@ -74,5 +78,29 @@ public class MusicPlayer {
             }
         });
         playingThread.start();
+    }
+
+    public static void seek(int percentage , String forwardOrBackwards){
+        if (forwardOrBackwards.equals("forward")){
+            try {
+                long skippingPoint =(long)( (double)songTotalLength * ((double)percentage / 100.0) );
+                bis.skip(skippingPoint);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else if (forwardOrBackwards.equals("backward")){
+            try {
+                pause();
+                remainingBytes = bis.available();
+                bis.reset();
+                long skippingPoint = (songTotalLength - remainingBytes) - (long)((double)songTotalLength * ((double)percentage / 100.0));
+                System.out.println(skippingPoint * 100 / songTotalLength);
+                bis.skip(skippingPoint);
+                resume();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
