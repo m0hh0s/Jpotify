@@ -1,7 +1,7 @@
 package Logic;
 
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.advanced.AdvancedPlayer;
+import Logic.jl.decoder.JavaLayerException;
+import Logic.jl.player.advanced.AdvancedPlayer;
 import java.io.*;
 import java.util.ArrayList;
 
