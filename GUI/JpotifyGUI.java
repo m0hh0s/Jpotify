@@ -3,6 +3,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class JpotifyGUI extends JFrame {
     private final String WINDOWS_TITLE = "Jpotify";
@@ -11,7 +12,7 @@ public class JpotifyGUI extends JFrame {
     private LibraryAndPlayListArea libraryAndPlayListArea = new LibraryAndPlayListArea();
     private MusicPlayerArea musicPlayerArea = new MusicPlayerArea();
     private JScrollPane scrollPane = new JScrollPane(libraryAndPlayListArea);
-    public JpotifyGUI(){
+    public JpotifyGUI() throws IOException {
         super();
         this.setTitle(WINDOWS_TITLE);
         this.setLayout(new BorderLayout());
