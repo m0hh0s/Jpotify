@@ -3,81 +3,80 @@ package Logic;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import java.io.*;
+import java.util.ArrayList;
 
-public class MusicPlayer{
-    private static AdvancedPlayer player = null;
-    private static FileInputStream fis = null;
-    private static BufferedInputStream bis = null;
-    private static long pauseLocation;
-    private static long songTotalLength;
-    private static String songPath;
+public class MusicPlayer {
+    private static volatile AdvancedPlayer player = null;
+    private static volatile FileInputStream fis = null;
+    private static volatile long pauseLocation = 0;
+    private static volatile long songTotalLength = 0;
+    private static Thread playingThread;
+    private static volatile boolean onPause;
+    private static volatile boolean isPlaying;
     private static boolean isOnLoop;
 
-    public static void play(String path){
-        MusicPlayer.stop(); //stopping the previous song
-        try {
-            fis = new FileInputStream(path);
-            songTotalLength = fis.available();
-            bis = new BufferedInputStream(fis);
-            player = new AdvancedPlayer(bis);
-            songPath = path + "";
-        } catch (JavaLayerException | IOException e) {
-            System.out.println("problem with player & files");
-        }
-        new Thread(){
-            @Override
-            public void run(){
-                try {
-                    player.play();
-                    if (isOnLoop){
-                        MusicPlayer.play(songPath);
-                    }
-                } catch (JavaLayerException e) {
-                    System.out.println("problem playing");
-                }
-            }
-        }.start();
+    public static boolean isOnLoop() {
+        return isOnLoop;
     }
 
-    public static void stop(){
-        if (player != null)
-            player.close();
-        songTotalLength = 0;
-        pauseLocation = 0;
+    public static boolean isPlaying() {
+        return isPlaying;
     }
 
-    public static void pause(){
-        try {
-            pauseLocation = fis.available();
-            player.close();
-        } catch (IOException e) {
-            System.out.println("problem in pausing");
-        }
+    public static void pause() {
+        onPause = true;
+        isPlaying = false;
     }
 
-    public static void resume(){
-        try {
-            fis = new FileInputStream(songPath);
-            fis.skip(songTotalLength - pauseLocation);
-            bis = new BufferedInputStream(fis);
-            player = new AdvancedPlayer(bis);
-
-        } catch (JavaLayerException | IOException e) {
-            System.out.println("problem with player & files");
+    public static void resume(ArrayList<Song> songsToBePlayed) {
+        onPause = false;
+        isPlaying = true;
+        synchronized (player) {
+            player.notifyAll();
         }
-        new Thread(){
-            @Override
-            public void run(){
-                try {
-                    player.play();
-                } catch (JavaLayerException e) {
-                    System.out.println("problem playing");
-                }
-            }
-        }.start();
     }
 
     public static void changeLoopStatus(){
         isOnLoop = !isOnLoop;
+    }
+
+    public static void playAList(ArrayList<Song> songsToBePlayed) {
+        onPause = false;
+        isPlaying = true;
+        playingThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < songsToBePlayed.size(); i++) {
+                    try {
+                        fis = new FileInputStream(songsToBePlayed.get(i).getSongAddress());
+                        player = new AdvancedPlayer(fis);
+                        while (player.play(1)) {
+                            if (onPause) {
+                                synchronized (player) {
+                                    player.wait();
+                                }
+                            }
+                        }
+                    } catch (FileNotFoundException | JavaLayerException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (isOnLoop && (i == songsToBePlayed.size() - 1) ){
+                        playAList(songsToBePlayed);
+                    }
+                }
+
+            }
+        });
+        playingThread.start();
+//        if (MusicPlayer.isOnLoop()){
+//            try {
+//                playingThread.join();
+//                System.out.println("now........");
+//                playAList(songsToBePlayed);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
     }
 }
