@@ -11,11 +11,13 @@ public class MusicPlayer {
     private static volatile BufferedInputStream bis = null;
     private static volatile long remainingBytes = 0;
     private static volatile long songTotalLength = 0;
+    private static volatile Song currentlyPlaying;
     private static Thread playingThread;
     private static volatile boolean onPause;
     private static volatile boolean isPlaying;
-    private static boolean isOnLoop;
-    private static volatile Song currentlyPlaying;
+    private static volatile boolean isOnLoop;
+    private static volatile boolean goToNextSong;
+    private static volatile boolean goToPreviousSong;
 
     public static Song getCurrentlyPlaying() {
         return currentlyPlaying;
@@ -66,9 +68,25 @@ public class MusicPlayer {
                                     player.wait();
                                 }
                             }
+                            if (goToNextSong || goToPreviousSong){
+                                goToNextSong = false;
+                                break;
+                            }
                         }
                     } catch (JavaLayerException | InterruptedException | IOException e) {
                         e.printStackTrace();
+                    }
+                    if (goToPreviousSong){
+                        goToPreviousSong = false;
+                        if (i == 0){
+                            if (isOnLoop)
+                                i = songsToBePlayed.size() - 2;
+                            else
+                                return;
+                        }
+                        else {
+                            i -= 2;
+                        }
                     }
                     if (isOnLoop && (i == songsToBePlayed.size() - 1) ){
                         playAList(songsToBePlayed);
@@ -102,5 +120,17 @@ public class MusicPlayer {
             }
 
         }
+    }
+
+    public static void nextSong(){
+        goToNextSong = true;
+        if (onPause)
+            resume();
+    }
+
+    public static void previousSong(){
+        goToPreviousSong = true;
+        if (onPause)
+            resume();
     }
 }
