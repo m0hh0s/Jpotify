@@ -14,6 +14,11 @@ public class MusicPlayer {
     private static volatile boolean onPause;
     private static volatile boolean isPlaying;
     private static boolean isOnLoop;
+    private static volatile Song currentlyPlaying;
+
+    public static Song getCurrentlyPlaying() {
+        return currentlyPlaying;
+    }
 
     public static boolean isOnLoop() {
         return isOnLoop;
@@ -48,7 +53,8 @@ public class MusicPlayer {
             public void run() {
                 for (int i = 0; i < songsToBePlayed.size(); i++) {
                     try {
-                        fis = new FileInputStream(songsToBePlayed.get(i).getSongAddress());
+                        currentlyPlaying = songsToBePlayed.get(i);
+                        fis = new FileInputStream(currentlyPlaying.getSongAddress());
                         player = new AdvancedPlayer(fis);
                         while (player.play(1)) {
                             if (onPause) {
@@ -68,15 +74,5 @@ public class MusicPlayer {
             }
         });
         playingThread.start();
-//        if (MusicPlayer.isOnLoop()){
-//            try {
-//                playingThread.join();
-//                System.out.println("now........");
-//                playAList(songsToBePlayed);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
     }
 }
