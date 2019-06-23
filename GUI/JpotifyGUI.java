@@ -9,6 +9,8 @@ public class JpotifyGUI extends JFrame {
     private final int WIDTH = 1132, HEIGHT = 700;
     private final int X = 70, Y = 70;
     private LibraryAndPlayListArea libraryAndPlayListArea = new LibraryAndPlayListArea();
+    private MusicPlayerArea musicPlayerArea = new MusicPlayerArea();
+    private JScrollPane scrollPane = new JScrollPane(libraryAndPlayListArea);
     public JpotifyGUI(){
         super();
         this.setTitle(WINDOWS_TITLE);
@@ -16,7 +18,8 @@ public class JpotifyGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
         this.setLocation(X, Y);
-        this.add(libraryAndPlayListArea,BorderLayout.WEST);
+        this.add(scrollPane,BorderLayout.WEST);
+        this.add(musicPlayerArea,BorderLayout.SOUTH);
         this.setVisible(true);
     }
 }
