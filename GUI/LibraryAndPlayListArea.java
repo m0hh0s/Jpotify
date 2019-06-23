@@ -1,7 +1,11 @@
 package GUI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class LibraryAndPlayListArea extends JPanel {
     private final int EMPTY_SPACE = 14;
@@ -13,6 +17,7 @@ public class LibraryAndPlayListArea extends JPanel {
     private JButton plusLabelForSong = new JButton();
     private JButton plusLabelForPlayList = new JButton();
     private JLabel yourLibraryHead = new JLabel();
+    private JLabel img = new JLabel();
     private JButton recentlyPlayed = new JButton();
     private JButton songs = new JButton();
     private JButton albums = new JButton();
@@ -23,8 +28,9 @@ public class LibraryAndPlayListArea extends JPanel {
     private JPanel firstAndHalfGridPanel = new JPanel(new GridLayout(0,1));
     private JPanel secondGridPanel = new JPanel(new GridLayout(0,1));
     private JPanel thirdGridPanel = new JPanel(new GridLayout(0,1));
+    private JPanel forthGridPanel = new JPanel(new GridLayout(1,1));
 
-    public LibraryAndPlayListArea(){
+    public LibraryAndPlayListArea() throws IOException {
         super();
         prepareButtonToAdd(homeButton,homeIcon,"Home");
         prepareButtonToAdd(plusLabelForSong,plusIcon,"Add Song");
@@ -36,18 +42,17 @@ public class LibraryAndPlayListArea extends JPanel {
         prepareButtonToAdd(artist,"Artist");
         prepareButtonToAdd(playListButton,"PlayList");
         prepareScrollToAdd(playListScroll,"PLAYLIST");
-
         this.setLayout(boxLayout);
-//        this.add(homeButton);
+        setImageIcon("SongImage.png",img);
         firstGridPanel.setMaximumSize(new Dimension(140,20));
         firstAndHalfGridPanel.setMaximumSize(new Dimension(140,20));
         secondGridPanel.setMaximumSize(new Dimension(140,20));
         thirdGridPanel.setMaximumSize(new Dimension(140,20));
+        forthGridPanel.setMaximumSize(new Dimension(140,140));
+
         firstGridPanel.add(homeButton);
         this.add(firstGridPanel);
-//        this.add(Box.createRigidArea(new Dimension(0,EMPTY_SPACE)));
         firstAndHalfGridPanel.add(yourLibraryHead);
-//        this.add(yourLibraryHead);
         this.add(firstAndHalfGridPanel);
         secondGridPanel.add(recentlyPlayed);
         secondGridPanel.add(songs);
@@ -56,18 +61,22 @@ public class LibraryAndPlayListArea extends JPanel {
         secondGridPanel.add(artist);
         secondGridPanel.add(plusLabelForSong);
         this.add(secondGridPanel);
+        this.add(playListScroll);
+        thirdGridPanel.add(plusLabelForPlayList);
+        forthGridPanel.add(img);
+        this.add(thirdGridPanel);
+        this.add(forthGridPanel);
 
-
+//        this.add(homeButton);
+//        this.add(Box.createRigidArea(new Dimension(0,EMPTY_SPACE)));
+//        this.add(yourLibraryHead);
 //        this.add(recentlyPlayed);
 //        this.add(songs);
 //        this.add(playListButton);
 //        this.add(albums);
 //        this.add(artist);
 //        this.add(plusLabelForSong);
-        this.add(playListScroll);
 //        this.add(plusLabelForPlayList);
-        thirdGridPanel.add(plusLabelForPlayList);
-        this.add(thirdGridPanel);
 
     }
     private void prepareButtonToAdd(JButton btn , ImageIcon icon, String name){
@@ -76,7 +85,7 @@ public class LibraryAndPlayListArea extends JPanel {
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
         btn.setBackground(Color.WHITE);
-        btn.setHorizontalAlignment(SwingConstants.LEFT);
+//        btn.setHorizontalAlignment(SwingConstants.LEFT);
     }
     private void prepareButtonToAdd(JButton btn, String name){
         btn.setText(name);
@@ -92,5 +101,13 @@ public class LibraryAndPlayListArea extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setColumnHeaderView(new JLabel(name));
+    }
+    private void setImageIcon(String path, JLabel label) throws IOException {
+        BufferedImage img = ImageIO.read(new File(path));
+        BufferedImage finalImg = new BufferedImage(140,140,img.getType());
+        Graphics2D graphics2D = finalImg.createGraphics();
+        graphics2D.drawImage(img,0,0,140,140,null);
+        graphics2D.dispose();
+        label.setIcon(new ImageIcon(finalImg));
     }
 }
