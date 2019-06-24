@@ -7,23 +7,15 @@ import java.io.IOException;
 
 public class Song{
     private String songAddress;
-    private String title;
-    private String albumName;
-    private String artistName;
-    private byte[] artwork;
+    private long dateListenedTo = 0;
+    private transient String title;
+    private transient String albumName;
+    private transient String artistName;
+    private transient byte[] artwork;
 
     public Song(String songAddress){
         this.songAddress = songAddress;
-        try {
-            AbstractID3v2Tag tag  = ID3v2TagFactory.createTag(new FileInputStream(songAddress).readAllBytes());
-            this.title = tag.getTitle();
-            this.albumName = tag.getAlbum();
-            this.artistName = tag.getArtist();
-            this.artwork = tag.getAlbumImage();
-
-        } catch (NoSuchTagException | UnsupportedTagException | InvalidDataException | IOException e) {
-            e.printStackTrace();
-        }
+        updateTag();
     }
 
     public String getSongAddress() {
@@ -44,6 +36,28 @@ public class Song{
 
     public byte[] getArtwork() {
         return artwork;
+    }
+
+    public void setDateListenedTo(long time){
+        this.dateListenedTo = time;
+    }
+
+    public long getDateListenedTo() {
+        return dateListenedTo;
+    }
+
+    public void updateTag(){
+        try {
+            AbstractID3v2Tag tag  = ID3v2TagFactory.createTag(new FileInputStream(songAddress).readAllBytes());
+            this.title = tag.getTitle();
+            this.albumName = tag.getAlbum();
+            this.artistName = tag.getArtist();
+            this.artwork = tag.getAlbumImage();
+            User.getMusicLibrary().handleAlbum(this);
+
+        } catch (NoSuchTagException | UnsupportedTagException | InvalidDataException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

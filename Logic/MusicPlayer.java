@@ -15,7 +15,7 @@ public class MusicPlayer {
     private static Thread playingThread;
     private static volatile boolean onPause;
     private static volatile boolean isPlaying;
-    private static volatile boolean isOnLoop;
+    private static boolean isOnLoop;
     private static volatile boolean goToNextSong;
     private static volatile boolean goToPreviousSong;
 
@@ -62,6 +62,7 @@ public class MusicPlayer {
                         songTotalLength = bis.available();
                         bis.mark(Integer.MAX_VALUE);
                         player = new AdvancedPlayer(bis);
+                        currentlyPlaying.setDateListenedTo(System.currentTimeMillis());
                         while (player.play(1)) {
                             if (onPause) {
                                 synchronized (player) {
