@@ -19,13 +19,16 @@ public class MusicPlayerArea extends JPanel{
     private JLabel timeRemaining = new JLabel("00:00:00");
     private JPanel northPanel = new JPanel(new BorderLayout());
     private JPanel buttonPanel = new JPanel(new FlowLayout());
-    private JPanel southPanel = new JPanel(new BorderLayout());
-    private JPanel centerPanel = new JPanel(new BorderLayout());
-    private JPanel southOfNorthPanel = new JPanel(new BorderLayout());
+    private JPanel southPanel = new JPanel(new FlowLayout());
     public MusicPlayerArea()  {
         super();
         this.setLayout(new BorderLayout());
         soundSlider.setPreferredSize(new Dimension(70,0));
+
+        //still have problem with this line
+        timeSlider.setPreferredSize(new Dimension(700,14));
+
+
         prepareButtonToAdd(backwardButton,backwardIcon);
         prepareButtonToAdd(playButton,playIcon);
         prepareButtonToAdd(forwardButton,forwardIcon);
@@ -36,13 +39,11 @@ public class MusicPlayerArea extends JPanel{
         buttonPanel.add(addToPlayList);
         northPanel.add(buttonPanel,BorderLayout.CENTER);
         northPanel.add(soundSlider,BorderLayout.EAST);
-        southOfNorthPanel.add(northPanel,BorderLayout.SOUTH);
-        southPanel.add(timeSlider,BorderLayout.CENTER);
-        southPanel.add(timePassed,BorderLayout.WEST);
-        southPanel.add(timeRemaining,BorderLayout.EAST);
-        centerPanel.add(southOfNorthPanel,BorderLayout.CENTER);
-        centerPanel.add(southPanel,BorderLayout.SOUTH);
-        this.add(centerPanel,BorderLayout.CENTER);
+        southPanel.add(timeRemaining);
+        southPanel.add(timeSlider);
+        southPanel.add(timePassed);
+        this.add(northPanel,BorderLayout.NORTH);
+        this.add(southPanel);
     }
     private void prepareButtonToAdd(JButton btn ,ImageIcon icon){
         btn.setIcon(icon);
