@@ -32,4 +32,13 @@ public class Album {
     public void removeSong(Song song){
         songs.remove(song);
     }
+
+    public byte[] getArtwork(){
+        for (Song song : songs) {
+            if (song.getArtwork() != null) {
+                return song.getArtwork();
+            }
+        }
+        return null;
+    }
 }
