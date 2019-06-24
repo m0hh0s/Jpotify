@@ -4,8 +4,9 @@ import Logic.mp3agic.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Song{
+public class Song implements Serializable {
     private String songAddress;
     private long dateListenedTo = 0;
     private transient String title;
