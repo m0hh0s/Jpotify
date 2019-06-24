@@ -1,12 +1,6 @@
 package Logic;
 
-import javax.sound.sampled.*;
 import java.io.IOException;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.Line;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Mixer;
 
 public class SoundControl {
     public static void setSystemVolume(int volume) {
