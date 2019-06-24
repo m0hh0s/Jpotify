@@ -1,6 +1,7 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Album {
     private String title;
@@ -10,7 +11,7 @@ public class Album {
     public Album(String title, String artistName) {
         this.title = title;
         this.artistName = artistName;
-        this.songs = new ArrayList<>();
+        this.songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
     }
 
     public String getTitle() {
