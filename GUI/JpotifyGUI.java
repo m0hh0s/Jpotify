@@ -4,6 +4,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class JpotifyGUI extends JFrame {
     private final String WINDOWS_TITLE = "Jpotify";
@@ -15,8 +16,12 @@ public class JpotifyGUI extends JFrame {
     private JPanel centerEastAndSouthPanel = new JPanel(new BorderLayout());
     private JScrollPane friendScrollPane = new JScrollPane(friendListArea);
     private JScrollPane libraryScrollPane = new JScrollPane(libraryAndPlayListArea);
-    public JpotifyGUI() throws IOException {
+    private ArrayList<PlayList> playLists = new ArrayList<>();
+    private CenterArea centerArea ;
+    public JpotifyGUI() throws IOException, FontFormatException {
         super();
+        playLists = libraryAndPlayListArea.getPlayLists().getPlayLists();
+        centerArea = new CenterArea(playLists);
         friendScrollPane.setColumnHeaderView(new JLabel("Friend Activity"));
         friendScrollPane.setPreferredSize(new Dimension(140,500));
         friendScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -27,8 +32,10 @@ public class JpotifyGUI extends JFrame {
         this.setLocation(X, Y);
         centerEastAndSouthPanel.add(musicPlayerArea,BorderLayout.SOUTH);
         centerEastAndSouthPanel.add(friendScrollPane,BorderLayout.EAST);
+        centerEastAndSouthPanel.add(centerArea);
         this.add(libraryScrollPane,BorderLayout.WEST);
         this.add(centerEastAndSouthPanel,BorderLayout.CENTER);
+
         this.setVisible(true);
     }
 }
