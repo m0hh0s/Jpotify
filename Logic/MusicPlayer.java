@@ -113,7 +113,6 @@ public class MusicPlayer {
                 remainingBytes = bis.available();
                 bis.reset();
                 long skippingPoint = (songTotalLength - remainingBytes) - (long)((double)songTotalLength * ((double)percentage / 100.0));
-                System.out.println(skippingPoint * 100 / songTotalLength);
                 bis.skip(skippingPoint);
                 resume();
             } catch (IOException e) {
