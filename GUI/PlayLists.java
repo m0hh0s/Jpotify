@@ -17,6 +17,7 @@ public class PlayLists extends JPanel {
         addPlayList(favourite);
         addPlayList(sharedSongs);
         addPlayListButton();
+        this.setBackground(Color.DARK_GRAY);
     }
     public void addPlayList(PlayList playList){
         playLists.add(playList);
@@ -25,11 +26,14 @@ public class PlayLists extends JPanel {
         for(PlayList playList:playLists){
             JPanel gridPanel = new JPanel(new GridLayout(1,1));
             gridPanel.setMaximumSize(new Dimension(140,40));
-            JButton temp = new JButton(playList.getName());
-            temp.setFocusPainted(false);
-            temp.setBorderPainted(false);
-            temp.setBackground(Color.WHITE);
-            gridPanel.add(temp);
+            JButton btn = new JButton(playList.getName());
+            btn.setFocusPainted(false);
+            btn.setBorderPainted(false);
+            btn.setBackground(Color.DARK_GRAY);
+            btn.setForeground(Color.WHITE);
+            Font buttonFont = new Font("optima",Font.PLAIN,13);
+            btn.setFont(buttonFont);
+            gridPanel.add(btn);
             this.add(gridPanel);
         }
     }
