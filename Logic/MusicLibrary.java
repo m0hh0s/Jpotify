@@ -1,5 +1,8 @@
 package Logic;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +43,7 @@ public class MusicLibrary implements Serializable {
             }
         }
         Album newAlbum = new Album(song.getAlbumName(),song.getArtistName());
+        newAlbum.addSong(song);
         albums.add(newAlbum);
     }
 
@@ -62,5 +66,28 @@ public class MusicLibrary implements Serializable {
             album.removeSong(song);
         }
         songs.remove(song);
+    }
+
+    public void addSong(){
+        String path = "";
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setMultiSelectionEnabled(true);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("musics" , "mp3");
+        fileChooser.setFileFilter(filter);
+        int res = fileChooser.showOpenDialog(null);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            File[] files = fileChooser.getSelectedFiles();
+            for (File file : files){
+                path = file.getAbsolutePath();
+                Song tempSong = new Song(path , this);
+                songs.add(tempSong);
+            }
+        }
+    }
+
+    public void updateLibrary(){
+        albums = new ArrayList<>();
+        for (Song song : songs)
+            song.updateTag(this);
     }
 }
