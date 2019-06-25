@@ -19,38 +19,38 @@ public class LibraryAndPlayListArea extends JPanel {
     private JButton artist = new JButton();
     private JButton playListButton = new JButton();
     private JLabel img = new JLabel();
+    private JLabel headerLabel = new JLabel("PlayLists");
     private JScrollPane playListScroll = new JScrollPane(playLists);
-    private JPanel secondGridPanel = new JPanel(new GridLayout(0,1));
-    private JPanel thirdGridPanel = new JPanel(new GridLayout(0,1));
+    private JPanel libraryGridPanel = new JPanel(new GridLayout(0,1));
+    private JPanel addPlayListGridPanel = new JPanel(new GridLayout(0,1));
+    private JPanel playListHeaderGridPanel = new JPanel(new GridLayout(1,1));
     private JPanel imagePanel = new JPanel(new GridLayout(1,1));
 
-    public LibraryAndPlayListArea() throws IOException, FontFormatException {
+    public LibraryAndPlayListArea() throws IOException {
         super();
+        this.setLayout(boxLayout);
+        this.setBackground(Color.DARK_GRAY);
         setImageIconForLabel("SongImage.png",img);
         prepareButtonToAdd(plusButtonForSong,"plusWhite2.png","Add Song");
         prepareButtonToAdd(plusLabelForPlayList,"plusWhite2.png","Add PlayList");
         prepareButtonToAdd(recentlyPlayed,"Recently Played");
         prepareButtonToAdd(songs,"Songs");
         prepareButtonToAdd(albums,"Albums");
-        prepareButtonToAdd(artist,"Artist");
-        prepareButtonToAdd(playListButton,"PlayList");
-        prepareScrollToAdd(playListScroll,"PLAYLIST");
-        this.setLayout(boxLayout);
-        secondGridPanel.setMaximumSize(new Dimension(140,20));
-        thirdGridPanel.setMaximumSize(new Dimension(140,20));
-        imagePanel.setMaximumSize(new Dimension(140,140));
-
-        secondGridPanel.add(recentlyPlayed);
-        secondGridPanel.add(songs);
-        secondGridPanel.add(playListButton);
-        secondGridPanel.add(albums);
-        secondGridPanel.add(artist);
-        secondGridPanel.add(plusButtonForSong);
-        this.add(secondGridPanel);
+        prepareButtonToAdd(artist,"Artists");
+        prepareButtonToAdd(playListButton,"PlayLists");
+        prepareScrollToAdd(playListScroll);
+        preparePanelToAdd(libraryGridPanel,new Dimension(140,20),Color.DARK_GRAY);
+        preparePanelToAdd(addPlayListGridPanel,new Dimension(140,20),Color.DARK_GRAY);
+        preparePanelToAdd(imagePanel,new Dimension(140,140),Color.DARK_GRAY);
+        preparePanelToAdd(playListHeaderGridPanel,new Dimension(140,10),Color.DARK_GRAY);
+        prepareLibraryGridPanelToAdd();
+        preparePlayListHeaderGridPanelToAdd();
+        prepareAddPlayListGridPanelToAdd();
+        prepareImagePanelToAdd();
+        this.add(libraryGridPanel);
+        this.add(playListHeaderGridPanel);
         this.add(playListScroll);
-        thirdGridPanel.add(plusLabelForPlayList);
-        this.add(thirdGridPanel);
-        imagePanel.add(img);
+        this.add(addPlayListGridPanel);
         this.add(imagePanel);
     }
 
@@ -65,29 +65,48 @@ public class LibraryAndPlayListArea extends JPanel {
         btn.setForeground(Color.LIGHT_GRAY);
 //        btn.setHorizontalAlignment(SwingConstants.LEFT);
     }
-    private void prepareButtonToAdd(JButton btn, String name){
+    private void prepareButtonToAdd(JButton btn, String name)  {
         btn.setText(name);
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
-        Font font = new Font("Garamond",Font.BOLD,15);
-        btn.setFont(font);
+        Font buttonFont = addFont("garamond/garmndmi.ttf",15);
+        btn.setFont(buttonFont);
         btn.setBackground(Color.DARK_GRAY);
         btn.setForeground(Color.WHITE);
         btn.setPreferredSize(new Dimension(70,25));
     }
-    private void prepareLabelToAdd(JLabel label, String name){
-        label.setText(name);
+    private void preparePanelToAdd(JPanel panel,Dimension dimension,Color color){
+        panel.setBackground(color);
+        panel.setMaximumSize(dimension);
     }
-    private void prepareScrollToAdd(JScrollPane scrollPane, String name) throws IOException, FontFormatException {
+    private void prepareScrollToAdd(JScrollPane scrollPane) {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JLabel headerLabel = new JLabel(name);
-        Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("ProzaLibre-SemiBoldItalic.ttf")).deriveFont(12f);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        //register the font
-        ge.registerFont(customFont);
-        headerLabel.setFont(customFont);
-        scrollPane.setColumnHeaderView(headerLabel);
+        scrollPane.setBackground(Color.DARK_GRAY);
+        scrollPane.setForeground(Color.WHITE);
+
+//        scrollPane.setColumnHeaderView(headerLabel);
+
+    }
+    private void prepareLibraryGridPanelToAdd(){
+        libraryGridPanel.add(recentlyPlayed);
+        libraryGridPanel.add(songs);
+        libraryGridPanel.add(playListButton);
+        libraryGridPanel.add(albums);
+        libraryGridPanel.add(artist);
+        libraryGridPanel.add(plusButtonForSong);
+    }
+    private void preparePlayListHeaderGridPanelToAdd(){
+        headerLabel.setForeground(Color.WHITE);
+        Font headerFont = addFont("Proza_Libre/ProzaLibre-SemiBoldItalic.ttf",12);
+        headerLabel.setFont(headerFont);
+        playListHeaderGridPanel.add(headerLabel);
+    }
+    private void prepareAddPlayListGridPanelToAdd(){
+        addPlayListGridPanel.add(plusLabelForPlayList);
+    }
+    private void prepareImagePanelToAdd(){
+        imagePanel.add(img);
     }
     private void setImageIconForLabel(String path, JLabel label) throws IOException {
         BufferedImage img = ImageIO.read(new File(path));
@@ -105,10 +124,21 @@ public class LibraryAndPlayListArea extends JPanel {
         graphics2D.dispose();
         btn.setIcon(new ImageIcon(finalImg));
     }
-
+    private Font addFont(String path,float size)  {
+        Font customFont = null;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(path)).deriveFont(size);
+        } catch (FontFormatException e) {
+            System.out.println("the font wan not there");
+        } catch (IOException e) {
+            System.out.println("the font wan not there");
+        }
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        //register the font
+        ge.registerFont(customFont);
+        return customFont;
+    }
     public PlayLists getPlayLists() {
         return playLists;
     }
 }
-//the icon site :
-//<div>Icons made by <a href="https://www.flaticon.com/authors/chanut" title="Chanut">Chanut</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"             title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
