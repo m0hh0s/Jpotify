@@ -25,7 +25,7 @@ public class SavedFilesHandler {
             }
         }
     }
-    public static User loadUserData(String username){
+    public static User loadUserData (String username) throws IOException{
         User tempUser = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -36,8 +36,10 @@ public class SavedFilesHandler {
             if (tempUser != null){
                 tempUser.getMusicLibrary().updateLibrary();
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e){
+            throw new IOException();
         }finally {
             if (ois != null){
                 try {

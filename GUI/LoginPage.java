@@ -1,7 +1,15 @@
 package GUI;
 
+import Logic.SavedFilesHandler;
+import Logic.User;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 
 public class LoginPage extends JFrame {
     private final String WINDOWS_TITLE = "Login";
@@ -15,6 +23,7 @@ public class LoginPage extends JFrame {
     private JPanel buttonPanel = new JPanel(new GridLayout(1,1));
     private JPanel motherPanel = new JPanel();
     private BoxLayout boxLayout = new BoxLayout(motherPanel,BoxLayout.PAGE_AXIS);
+
     public LoginPage(){
         super();
         this.setLayout(new BorderLayout());
@@ -39,5 +48,16 @@ public class LoginPage extends JFrame {
         motherPanel.add(buttonPanel);
         this.add(motherPanel);
         this.setVisible(true);
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    SavedFilesHandler.loadUserData(id.getText());
+                } catch (IOException ex) {
+                    User user = new User();
+                    User.setInstance(user);
+                }
+            }
+        });
     }
 }
