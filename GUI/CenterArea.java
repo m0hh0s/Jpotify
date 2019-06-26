@@ -11,15 +11,22 @@ import java.util.ArrayList;
 public class CenterArea extends JPanel{
     private ArrayList<PlayList> playLists ;
     private JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
+    private JPanel northPanel = new JPanel(new BorderLayout());
+    private JLabel name = new JLabel("97310**     ");
     private Color VERY_DARK_GRAY = new Color(40,40,40);
+    private Color NEAR_BLACK = new Color(28,28,28);
     public CenterArea(ArrayList<PlayList> playLists) throws IOException {
         super();
+        name.setForeground(Color.WHITE);
+        northPanel.add(name,BorderLayout.EAST);
+        northPanel.setBackground(NEAR_BLACK);
         this.setLayout(new BorderLayout());
         this.playLists = playLists;
         this.setBackground(VERY_DARK_GRAY);
         flowLayoutPanel.setBackground(VERY_DARK_GRAY);
         preparePlayListsToAdd();
         this.add(flowLayoutPanel);
+        this.add(northPanel,BorderLayout.NORTH);
     }
     private void preparePlayListsToAdd() throws IOException {
         for(PlayList playList:playLists) {
