@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class MusicPlayerArea extends JPanel{
-    private final int BUTTON_SIZE = 24;
     private JSlider timeSlider = new JSlider(0,1000,0);
     private JSlider soundSlider = new JSlider();
     private JButton replayButton = new JButton();
@@ -32,53 +31,71 @@ public class MusicPlayerArea extends JPanel{
     public MusicPlayerArea() throws IOException {
         super();
         this.setLayout(new BorderLayout());
-
-        soundSlider.setPreferredSize(new Dimension(70,0));
-        soundSlider.setBackground(NEAR_VERY_DARK_GRAY);
-        timeSlider.setBackground(NEAR_VERY_DARK_GRAY);
-        timeSlider.setForeground(Color.ORANGE);
-        //still have problem with this line
-        timeSlider.setPreferredSize(new Dimension(500,14));
-        timePassed.setForeground(Color.WHITE);
-        timeRemaining.setForeground(Color.WHITE);
         prepareButtonToAdd(replayButton,"Icons/replayIconWhite.png",20);
         prepareButtonToAdd(playButton,"Icons/playIconWhite.png",40);
         prepareButtonToAdd(backwardButton,"Icons/backwardIconWhite.png",20);
         prepareButtonToAdd(forwardButton,"Icons/forwardIconWhite.png",20);
         prepareButtonToAdd(addToPlayList,"Icons/listFreeIconWhite.png",20);
+        prepareButtonPanelToAdd(NEAR_VERY_DARK_GRAY);
+        prepareNorthPanelToAdd(NEAR_VERY_DARK_GRAY);
+        prepareSouthPanelToAdd(NEAR_VERY_DARK_GRAY);
+        prepareWestPanelToAdd(NEAR_VERY_DARK_GRAY);
+        prepareCenterPanelToAdd(NEAR_VERY_DARK_GRAY);
+        prepareGridSongInfoPanelToAdd(new Dimension(200,70),NEAR_VERY_DARK_GRAY);
+        prepareSliderToAdd(soundSlider,NEAR_VERY_DARK_GRAY,new Dimension(70,0));
+        //still have problem with this line
+        prepareSliderToAdd(timeSlider,NEAR_VERY_DARK_GRAY,new Dimension(500,14));
+        prepareLabelToAdd(timePassed,Color.WHITE);
+        prepareLabelToAdd(timeRemaining,Color.WHITE);
+        prepareSongInfoToAdd(songName,Color.WHITE,"Your Safe With Me",addFont("Fonts/greataris_destain-alternative/destain.ttf",19));
+        prepareSongInfoToAdd(songSinger,Color.WHITE,"Sheriff",addFont("Fonts/greataris_destain-alternative/destain.ttf",14));
+        this.add(westPanel,BorderLayout.WEST);
+        this.add(centerPanel,BorderLayout.CENTER);
+        this.add(soundSlider,BorderLayout.EAST);
+    }
+    private void prepareButtonPanelToAdd (Color backGroundColor){
         buttonPanel.add(replayButton);
         buttonPanel.add(backwardButton);
         buttonPanel.add(playButton);
         buttonPanel.add(forwardButton);
         buttonPanel.add(addToPlayList);
-       northPanel.add(buttonPanel,BorderLayout.CENTER);
-//        northPanel.add(soundSlider,BorderLayout.EAST);
+        buttonPanel.setBackground(backGroundColor);
+    }
+    private void prepareNorthPanelToAdd(Color backGroundColor) {
+        northPanel.add(buttonPanel,BorderLayout.CENTER);
+        northPanel.setBackground(backGroundColor);
+
+    }
+    private void prepareSouthPanelToAdd(Color backGroundColor){
         southPanel.add(timeRemaining);
         southPanel.add(timeSlider);
         southPanel.add(timePassed);
-        gridSongInfo.setMaximumSize(new Dimension(200,70));
-        gridSongInfo.add(songName);
-        gridSongInfo.add(songSinger);
+        southPanel.setBackground(backGroundColor);
+
+    }
+    private void prepareWestPanelToAdd(Color backGroundColor){
         westPanel.add(gridSongInfo,BorderLayout.NORTH);
+        westPanel.setBackground(backGroundColor);
+    }
+    private void prepareCenterPanelToAdd(Color backGroundColor){
         centerPanel.add(southPanel,BorderLayout.SOUTH);
         centerPanel.add(northPanel,BorderLayout.NORTH);
-        this.add(westPanel,BorderLayout.WEST);
-        this.add(centerPanel,BorderLayout.CENTER);
-        this.add(soundSlider,BorderLayout.EAST);
-        buttonPanel.setBackground(NEAR_VERY_DARK_GRAY);
-        northPanel.setBackground(NEAR_VERY_DARK_GRAY);
-        southPanel.setBackground(NEAR_VERY_DARK_GRAY);
-        gridSongInfo.setBackground(NEAR_VERY_DARK_GRAY);
-        westPanel.setBackground(NEAR_VERY_DARK_GRAY);
-        centerPanel.setBackground(NEAR_VERY_DARK_GRAY);
-        Font songNameFont = addFont("Fonts/greataris_destain-alternative/destain.ttf",19);
-        Font songSingerFont = addFont("Fonts/greataris_destain-alternative/destain.ttf",14);
-        songName.setForeground(Color.WHITE);
-        songName.setText("Your Safe With Me");
-        songName.setFont(songNameFont);
-        songSinger.setForeground(Color.WHITE);
-        songSinger.setText("Sheriff");
-        songSinger.setFont(songSingerFont);
+        centerPanel.setBackground(backGroundColor);
+    }
+    private void prepareGridSongInfoPanelToAdd(Dimension dimension,Color backGroundColor){
+        gridSongInfo.setMaximumSize(dimension);
+        gridSongInfo.add(songName);
+        gridSongInfo.add(songSinger);
+        gridSongInfo.setBackground(backGroundColor);
+    }
+    private void prepareSongInfoToAdd(JLabel label,Color forGroundColor,String text,Font font){
+        label.setForeground(forGroundColor);
+        label.setText(text);
+        label.setFont(font);
+    }
+    private void prepareSliderToAdd(JSlider slider,Color backGroundColor , Dimension dimension){
+        slider.setBackground(backGroundColor);
+        slider.setPreferredSize(dimension);
     }
     private void prepareButtonToAdd(JButton btn,String path,int size) throws IOException {
         btn.setFocusPainted(false);
@@ -86,6 +103,9 @@ public class MusicPlayerArea extends JPanel{
         btn.setPreferredSize(new Dimension(size,size));
         setImageIconForButton(path,btn,size);
         btn.setBackground(NEAR_VERY_DARK_GRAY);
+    }
+    private void prepareLabelToAdd(JLabel label,Color forGroundColor){
+        label.setForeground(forGroundColor);
     }
     private void setImageIconForButton(String path, JButton btn ,int size) throws IOException {
         BufferedImage img = ImageIO.read(new File(path));
