@@ -28,6 +28,7 @@ public class FriendListArea extends JPanel {
         prepareButtonToAdd(friends);
     }
     private void prepareButtonToAdd(ArrayList<Friend> friends) throws IOException {
+        Font buttonFont = new Font("optima",Font.PLAIN,12);
         for(Friend frnd:friends) {
             JButton temp = new JButton();
             JPanel tmp = new JPanel(new GridLayout(0,1));
@@ -40,6 +41,7 @@ public class FriendListArea extends JPanel {
                 String text = frnd.getName() + "  " + frnd.getTime() + "\n" + frnd.getSong();
                 temp.setText("<html>" + text.replaceAll("\\n", "<br>") + "</html>");
             }
+            temp.setFont(buttonFont);
             temp.setFocusPainted(false);
             temp.setBorderPainted(false);
             temp.setBackground(NEAR_BLACK);
