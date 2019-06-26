@@ -1,9 +1,11 @@
 package GUI;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FontFormatException {
         JpotifyGUI jpotifyGUI = new JpotifyGUI();
+        LoginPage loginPage = new LoginPage();
     }
 }
