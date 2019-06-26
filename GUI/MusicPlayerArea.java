@@ -32,7 +32,7 @@ public class MusicPlayerArea extends JPanel{
         super();
         this.setLayout(new BorderLayout());
         prepareButtonToAdd(replayButton,"Icons/replayIconWhite.png",20);
-        prepareButtonToAdd(playButton,"Icons/playIconWhite.png",40);
+        prepareButtonToAdd(playButton,"Icons/play.png",40);
         prepareButtonToAdd(backwardButton,"Icons/backwardIconWhite.png",20);
         prepareButtonToAdd(forwardButton,"Icons/forwardIconWhite.png",20);
         prepareButtonToAdd(addToPlayList,"Icons/listFreeIconWhite.png",20);
