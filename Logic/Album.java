@@ -11,7 +11,8 @@ public class Album {
     public Album(String title, String artistName) {
         this.title = title;
         this.artistName = artistName;
-        this.songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
+        //this.songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
+        songs = new ArrayList<>();
     }
 
     public String getTitle() {

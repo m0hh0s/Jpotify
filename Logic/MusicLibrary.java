@@ -8,15 +8,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+
 public class MusicLibrary implements Serializable {
     private ArrayList<Song> songs;
     private transient ArrayList<Album> albums;
     private ArrayList<Playlist> playlists;
 
     public MusicLibrary() {
-        this.songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
-        this.albums = (ArrayList<Album>) Collections.synchronizedList(new ArrayList<Album>());
-        this.playlists = (ArrayList<Playlist>) Collections.synchronizedList(new ArrayList<Playlist>());
+//        this.songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
+//        this.albums = (ArrayList<Album>) Collections.synchronizedList(new ArrayList<Album>());
+//        this.playlists = (ArrayList<Playlist>) Collections.synchronizedList(new ArrayList<Playlist>());
+        songs = new ArrayList<>();
+        albums = new ArrayList<>();
+        playlists = new ArrayList<>();
     }
 
     public ArrayList<Song> getSongs() {

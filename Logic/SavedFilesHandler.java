@@ -25,7 +25,6 @@ public class SavedFilesHandler {
             }
         }
     }
-
     public static User loadUserData(String username){
         User tempUser = null;
         FileInputStream fis = null;
