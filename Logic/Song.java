@@ -13,10 +13,12 @@ public class Song implements Serializable {
     private transient String albumName;
     private transient String artistName;
     private transient byte[] artwork;
+    private MusicLibrary musicLibrary;
 
-    public Song(String songAddress){
+    public Song(String songAddress , MusicLibrary musicLibrary){
         this.songAddress = songAddress;
-        updateTag();
+        this.musicLibrary = musicLibrary;
+        updateTag(musicLibrary);
     }
 
     public String getSongAddress() {
@@ -47,17 +49,18 @@ public class Song implements Serializable {
         return dateListenedTo;
     }
 
-    public void updateTag(){
+    public void updateTag(MusicLibrary musicLibrary){
         try {
             AbstractID3v2Tag tag  = ID3v2TagFactory.createTag(new FileInputStream(songAddress).readAllBytes());
             this.title = tag.getTitle();
             this.albumName = tag.getAlbum();
             this.artistName = tag.getArtist();
             this.artwork = tag.getAlbumImage();
-            User.getMusicLibrary().handleAlbum(this);
+            musicLibrary.handleAlbum(this);
 
         } catch (NoSuchTagException | UnsupportedTagException | InvalidDataException | IOException e) {
             e.printStackTrace();
+            //musicLibrary.removeSong(this);
         }
     }
 

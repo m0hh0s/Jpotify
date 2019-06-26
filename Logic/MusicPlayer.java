@@ -22,20 +22,16 @@ public class MusicPlayer {
     public static Song getCurrentlyPlaying() {
         return currentlyPlaying;
     }
-
     public static boolean isOnLoop() {
         return isOnLoop;
     }
-
     public static boolean isPlaying() {
         return isPlaying;
     }
-
     public static void pause() {
         onPause = true;
         isPlaying = false;
     }
-
     public static void resume() {
         onPause = false;
         isPlaying = true;
@@ -43,11 +39,9 @@ public class MusicPlayer {
             player.notifyAll();
         }
     }
-
     public static void changeLoopStatus(){
         isOnLoop = !isOnLoop;
     }
-
     public static void playAList(ArrayList<Song> songsToBePlayed) {
         onPause = false;
         isPlaying = true;
@@ -93,12 +87,11 @@ public class MusicPlayer {
                         playAList(songsToBePlayed);
                     }
                 }
-
+                currentlyPlaying = null;
             }
         });
         playingThread.start();
     }
-
     public static void seek(int percentage , String forwardOrBackwards){
         if (forwardOrBackwards.equals("forward")){
             try {
@@ -121,13 +114,11 @@ public class MusicPlayer {
 
         }
     }
-
     public static void nextSong(){
         goToNextSong = true;
         if (onPause)
             resume();
     }
-
     public static void previousSong(){
         goToPreviousSong = true;
         if (onPause)
