@@ -2,6 +2,8 @@ package GUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,7 +12,6 @@ import java.io.IOException;
 public class LibraryAndPlayListArea extends JPanel {
     private PlayLists playLists = new PlayLists();
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.PAGE_AXIS);
-    private ImageIcon plusIcon = new ImageIcon("plus.png");
     private JButton plusButtonForSong = new JButton();
     private JButton plusLabelForPlayList = new JButton();
     private JButton recentlyPlayed = new JButton();
@@ -25,24 +26,24 @@ public class LibraryAndPlayListArea extends JPanel {
     private JPanel addPlayListGridPanel = new JPanel(new GridLayout(0,1));
     private JPanel playListHeaderGridPanel = new JPanel(new GridLayout(1,1));
     private JPanel imagePanel = new JPanel(new GridLayout(1,1));
-
+    private Color NEAR_BLACK = new Color(28,28,28);
     public LibraryAndPlayListArea() throws IOException {
         super();
         this.setLayout(boxLayout);
-        this.setBackground(Color.DARK_GRAY);
-        setImageIconForLabel("SongImage.png",img);
-        prepareButtonToAdd(plusButtonForSong,"plusWhite2.png","Add Song");
-        prepareButtonToAdd(plusLabelForPlayList,"plusWhite2.png","Add PlayList");
+        this.setBackground(NEAR_BLACK);
+        setImageIconForLabel("Icons/SongImage.png",img);
+        prepareButtonToAdd(plusButtonForSong,"Icons/plusIconWhite2.png","Add Song");
+        prepareButtonToAdd(plusLabelForPlayList,"Icons/plusIconWhite2.png","Add PlayList");
         prepareButtonToAdd(recentlyPlayed,"Recently Played");
         prepareButtonToAdd(songs,"Songs");
         prepareButtonToAdd(albums,"Albums");
         prepareButtonToAdd(artist,"Artists");
         prepareButtonToAdd(playListButton,"PlayLists");
         prepareScrollToAdd(playListScroll);
-        preparePanelToAdd(libraryGridPanel,new Dimension(140,20),Color.DARK_GRAY);
-        preparePanelToAdd(addPlayListGridPanel,new Dimension(140,20),Color.DARK_GRAY);
-        preparePanelToAdd(imagePanel,new Dimension(140,140),Color.DARK_GRAY);
-        preparePanelToAdd(playListHeaderGridPanel,new Dimension(140,10),Color.DARK_GRAY);
+        preparePanelToAdd(libraryGridPanel,new Dimension(140,20),NEAR_BLACK);
+        preparePanelToAdd(addPlayListGridPanel,new Dimension(140,20),NEAR_BLACK);
+        preparePanelToAdd(imagePanel,new Dimension(140,140),NEAR_BLACK);
+        preparePanelToAdd(playListHeaderGridPanel,new Dimension(140,10),NEAR_BLACK);
         prepareLibraryGridPanelToAdd();
         preparePlayListHeaderGridPanelToAdd();
         prepareAddPlayListGridPanelToAdd();
@@ -61,7 +62,7 @@ public class LibraryAndPlayListArea extends JPanel {
         btn.setFont(font);
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
-        btn.setBackground(Color.DARK_GRAY);
+        btn.setBackground(NEAR_BLACK);
         btn.setForeground(Color.LIGHT_GRAY);
 //        btn.setHorizontalAlignment(SwingConstants.LEFT);
     }
@@ -69,9 +70,9 @@ public class LibraryAndPlayListArea extends JPanel {
         btn.setText(name);
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
-        Font buttonFont = addFont("garamond/garmndmi.ttf",15);
+        Font buttonFont = addFont("Fonts/garamond/garmndmi.ttf",15);
         btn.setFont(buttonFont);
-        btn.setBackground(Color.DARK_GRAY);
+        btn.setBackground(NEAR_BLACK);
         btn.setForeground(Color.WHITE);
         btn.setPreferredSize(new Dimension(70,25));
     }
@@ -82,11 +83,10 @@ public class LibraryAndPlayListArea extends JPanel {
     private void prepareScrollToAdd(JScrollPane scrollPane) {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBackground(Color.DARK_GRAY);
+        UIManager.put("ScrollBar.thumb", new ColorUIResource(NEAR_BLACK));
+        scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() );
+        scrollPane.setBackground(NEAR_BLACK);
         scrollPane.setForeground(Color.WHITE);
-
-//        scrollPane.setColumnHeaderView(headerLabel);
-
     }
     private void prepareLibraryGridPanelToAdd(){
         libraryGridPanel.add(recentlyPlayed);
@@ -98,7 +98,7 @@ public class LibraryAndPlayListArea extends JPanel {
     }
     private void preparePlayListHeaderGridPanelToAdd(){
         headerLabel.setForeground(Color.WHITE);
-        Font headerFont = addFont("Proza_Libre/ProzaLibre-SemiBoldItalic.ttf",12);
+        Font headerFont = addFont("Fonts/Proza_Libre/ProzaLibre-SemiBoldItalic.ttf",12);
         headerLabel.setFont(headerFont);
         playListHeaderGridPanel.add(headerLabel);
     }
