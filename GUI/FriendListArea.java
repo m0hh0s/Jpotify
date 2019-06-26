@@ -9,12 +9,15 @@ public class FriendListArea extends JPanel {
     private ArrayList<JButton> friendsButtons = new ArrayList<>();
     private ArrayList<Friend> friends = new ArrayList<>();
     private ImageIcon onlineIcon = new ImageIcon("onlineIcon.png");
+    private Color NEAR_BLACK = new Color(28,28,28);
+
     public FriendListArea(){
         super();
         this.setLayout(boxLayout);
         addFriend(new Friend("sattar","my lovely song"));
         addFriend(new Friend("m_hejrati","his lovely song"));
         Friend tmp = new Friend("m0hh0s","your lovely song");
+        this.setBackground(NEAR_BLACK);
         tmp.setTime(50);
         tmp.setOnline(false);
         addFriend(tmp);
@@ -35,7 +38,8 @@ public class FriendListArea extends JPanel {
             }
             temp.setFocusPainted(false);
             temp.setBorderPainted(false);
-            temp.setBackground(Color.WHITE);
+            temp.setBackground(NEAR_BLACK);
+            temp.setForeground(Color.WHITE);
             tmp.add(temp);
             this.add(tmp);
             friendsButtons.add(temp);
