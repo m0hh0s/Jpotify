@@ -8,7 +8,7 @@ public class PlayLists extends JPanel {
     private final PlayList favourite = new PlayList("Favourite");
     private final PlayList sharedSongs = new PlayList("shared songs");
     private ArrayList<PlayList> playLists = new ArrayList<>();
-
+    private Color NEAR_BLACK = new Color(28,28,28);
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.PAGE_AXIS);
 
     public PlayLists(){
@@ -17,7 +17,7 @@ public class PlayLists extends JPanel {
         addPlayList(favourite);
         addPlayList(sharedSongs);
         addPlayListButton();
-        this.setBackground(Color.DARK_GRAY);
+        this.setBackground(NEAR_BLACK);
     }
     public void addPlayList(PlayList playList){
         playLists.add(playList);
@@ -29,7 +29,7 @@ public class PlayLists extends JPanel {
             JButton btn = new JButton(playList.getName());
             btn.setFocusPainted(false);
             btn.setBorderPainted(false);
-            btn.setBackground(Color.DARK_GRAY);
+            btn.setBackground(NEAR_BLACK);
             btn.setForeground(Color.WHITE);
             Font buttonFont = new Font("optima",Font.PLAIN,13);
             btn.setFont(buttonFont);
