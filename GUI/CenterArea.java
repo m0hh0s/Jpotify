@@ -35,7 +35,7 @@ public class CenterArea extends JPanel{
             btn.setSize(new Dimension(200,200));
             btn.setFocusPainted(false);
             btn.setBorderPainted(false);
-            this.setImageIcon("anonymousMusicIcon.png", btn,200);
+            this.setImageIcon("Icons/anonymousMusicIcon.png", btn,200);
             buttonPanel.add(btn);
             labelPanel.add(label);
             motherGridPanel.add(buttonPanel);
@@ -44,9 +44,14 @@ public class CenterArea extends JPanel{
         }
 
     }
-    private void setImageIcon(String path, JButton button,int size) throws IOException {
+    private void setImageIcon(String path, JButton button,int size)  {
         //duplicate code
-        BufferedImage img = ImageIO.read(new File(path));
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            System.out.println("the path is wrong and btw im in centerArea");
+        }
         BufferedImage finalImg = new BufferedImage(size,size,img.getType());
         Graphics2D graphics2D = finalImg.createGraphics();
         graphics2D.drawImage(img,0,0,size,size,null);
