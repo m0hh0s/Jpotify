@@ -109,6 +109,9 @@ public class MusicPlayer {
                     }
                     if (isOnLoop && (i == songsToBePlayed.size() - 1) ){
                         playAList(songsToBePlayed , jpotifyGUI);
+                        currentlyPlaying = null;
+                        isPlaying = false;
+                        onPause = true;
                     }
                 }
                 currentlyPlaying = null;

@@ -10,7 +10,7 @@ public class Playlist implements Serializable {
 
     public Playlist(String name) {
         this.name = name;
-        songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
+        songs = new ArrayList<>();
     }
 
     public String getName() {
