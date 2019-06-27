@@ -7,7 +7,9 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class LibraryAndPlayListArea extends JPanel {
     private PlayLists playLists = new PlayLists();
@@ -31,7 +33,7 @@ public class LibraryAndPlayListArea extends JPanel {
         super();
         this.setLayout(boxLayout);
         this.setBackground(NEAR_BLACK);
-        setImageIconForLabel("Icons/SongImage.png",img);
+        setImageIconForLabel(new FileInputStream("Icons/SongImage.png"));
         prepareButtonToAdd(plusButtonForSong,"Icons/plusIconWhite2.png","Add Song");
         prepareButtonToAdd(plusLabelForPlayList,"Icons/plusIconWhite2.png","Add PlayList");
         prepareButtonToAdd(recentlyPlayed,"Recently Played");
@@ -108,13 +110,13 @@ public class LibraryAndPlayListArea extends JPanel {
     private void prepareImagePanelToAdd(){
         imagePanel.add(img);
     }
-    private void setImageIconForLabel(String path, JLabel label) throws IOException {
-        BufferedImage img = ImageIO.read(new File(path));
+    public void setImageIconForLabel(InputStream is) throws IOException {
+        BufferedImage img = ImageIO.read(is);
         BufferedImage finalImg = new BufferedImage(140,140,img.getType());
         Graphics2D graphics2D = finalImg.createGraphics();
         graphics2D.drawImage(img,0,0,140,140,null);
         graphics2D.dispose();
-        label.setIcon(new ImageIcon(finalImg));
+        this.img.setIcon(new ImageIcon(finalImg));
     }
     private void setImageIconForButton(String path, JButton btn ,int size) throws IOException {
         BufferedImage img = ImageIO.read(new File(path));
@@ -140,5 +142,33 @@ public class LibraryAndPlayListArea extends JPanel {
     }
     public PlayLists getPlayLists() {
         return playLists;
+    }
+
+    public JButton getPlusButtonForSong() {
+        return plusButtonForSong;
+    }
+
+    public JButton getPlusLabelForPlayList() {
+        return plusLabelForPlayList;
+    }
+
+    public JButton getRecentlyPlayed() {
+        return recentlyPlayed;
+    }
+
+    public JButton getSongs() {
+        return songs;
+    }
+
+    public JButton getAlbums() {
+        return albums;
+    }
+
+    public JButton getArtist() {
+        return artist;
+    }
+
+    public JButton getPlayListButton() {
+        return playListButton;
     }
 }

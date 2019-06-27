@@ -1,5 +1,7 @@
 package GUI;
 
+import Logic.User;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,9 +14,10 @@ public class CenterArea extends JPanel{
     private ArrayList<PlayList> playLists ;
     private JPanel flowLayoutPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
     private JPanel northPanel = new JPanel(new BorderLayout());
-    private JLabel name = new JLabel("97310**     ");
+    private JLabel name = new JLabel("rideman");
     private Color VERY_DARK_GRAY = new Color(40,40,40);
     private Color NEAR_BLACK = new Color(28,28,28);
+
     public CenterArea(ArrayList<PlayList> playLists) throws IOException {
         super();
         name.setForeground(Color.WHITE);
@@ -29,6 +32,10 @@ public class CenterArea extends JPanel{
         this.add(northPanel,BorderLayout.NORTH);
     }
     private void preparePlayListsToAdd() throws IOException {
+
+        //  btn artwork
+        //  label title
+
         for(PlayList playList:playLists) {
             JPanel motherGridPanel = new JPanel(new BorderLayout());
 //            motherGridPanel.setLayout(new BoxLayout(motherGridPanel,BoxLayout.PAGE_AXIS));

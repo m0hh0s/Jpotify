@@ -49,7 +49,6 @@ public class JpotifyGUI extends JFrame {
         this.add(eastArea,BorderLayout.EAST);
         this.add(centerArea);
         this.add(libraryScrollPane,BorderLayout.WEST);
-        this.setVisible(true);
     }
     private Font addFont(String path,float size)  {
         Font customFont = null;
@@ -64,5 +63,41 @@ public class JpotifyGUI extends JFrame {
         //register the font
         ge.registerFont(customFont);
         return customFont;
+    }
+
+    public LibraryAndPlayListArea getLibraryAndPlayListArea() {
+        return libraryAndPlayListArea;
+    }
+
+    public MusicPlayerArea getMusicPlayerArea() {
+        return musicPlayerArea;
+    }
+
+    public FriendListArea getFriendListArea() {
+        return friendListArea;
+    }
+
+    public JScrollPane getFriendScrollPane() {
+        return friendScrollPane;
+    }
+
+    public JScrollPane getLibraryScrollPane() {
+        return libraryScrollPane;
+    }
+
+    public ArrayList<PlayList> getPlayLists() {
+        return playLists;
+    }
+
+    public CenterArea getCenterArea() {
+        return centerArea;
+    }
+
+    public JLabel getFriendAreaHeader() {
+        return friendAreaHeader;
+    }
+
+    public JPanel getEastArea() {
+        return eastArea;
     }
 }

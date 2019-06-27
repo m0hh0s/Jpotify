@@ -1,7 +1,18 @@
 package Logic;
 
+import GUI.JpotifyGUI;
 import Logic.jl.decoder.JavaLayerException;
 import Logic.jl.player.advanced.AdvancedPlayer;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -9,8 +20,8 @@ public class MusicPlayer {
     private static volatile AdvancedPlayer player = null;
     private static volatile FileInputStream fis = null;
     private static volatile BufferedInputStream bis = null;
-    private static volatile long remainingBytes = 0;
-    private static volatile long songTotalLength = 0;
+    private static volatile int startPoint = 0;
+    private static volatile int endPoint = 0;
     private static volatile Song currentlyPlaying;
     private static Thread playingThread;
     private static volatile boolean onPause;
@@ -33,16 +44,20 @@ public class MusicPlayer {
         isPlaying = false;
     }
     public static void resume() {
-        onPause = false;
-        isPlaying = true;
-        synchronized (player) {
-            player.notifyAll();
+        if (player != null) {
+            onPause = false;
+            isPlaying = true;
+            synchronized (player) {
+                player.notifyAll();
+            }
         }
     }
     public static void changeLoopStatus(){
         isOnLoop = !isOnLoop;
     }
-    public static void playAList(ArrayList<Song> songsToBePlayed) {
+    public static void playAList(ArrayList<Song> songsToBePlayed , JpotifyGUI jpotifyGUI) {
+        if (isPlaying() && player != null)
+            player.close();
         onPause = false;
         isPlaying = true;
         playingThread = new Thread(new Runnable() {
@@ -53,11 +68,20 @@ public class MusicPlayer {
                         currentlyPlaying = songsToBePlayed.get(i);
                         fis = new FileInputStream(currentlyPlaying.getSongAddress());
                         bis = new BufferedInputStream(fis);
-                        songTotalLength = bis.available();
+                        endPoint = bis.available();
                         bis.mark(Integer.MAX_VALUE);
                         player = new AdvancedPlayer(bis);
                         currentlyPlaying.setDateListenedTo(System.currentTimeMillis());
+                        int duration = currentlyPlaying.getTotalLength();
+                        String minute = String.format("%02d" , ((duration - (duration & 60)) / 60));
+                        String second = String.format("%02d" , (duration % 60));
+                        jpotifyGUI.getMusicPlayerArea().getTotalTime().setText(minute + ":" + second);
+                        jpotifyGUI.getMusicPlayerArea().getSongName().setText(currentlyPlaying.getTitle());
+                        jpotifyGUI.getMusicPlayerArea().getSongSinger().setText(currentlyPlaying.getArtistName());
+                        jpotifyGUI.getMusicPlayerArea().getTimeSlider().setMaximum(endPoint);
+                        jpotifyGUI.getLibraryAndPlayListArea().setImageIconForLabel(new BufferedInputStream(new ByteArrayInputStream(currentlyPlaying.getArtwork())));
                         while (player.play(1)) {
+                            jpotifyGUI.getMusicPlayerArea().getTimeSlider().setValue(endPoint - bis.available());
                             if (onPause) {
                                 synchronized (player) {
                                     player.wait();
@@ -84,34 +108,22 @@ public class MusicPlayer {
                         }
                     }
                     if (isOnLoop && (i == songsToBePlayed.size() - 1) ){
-                        playAList(songsToBePlayed);
+                        playAList(songsToBePlayed , jpotifyGUI);
                     }
                 }
                 currentlyPlaying = null;
+                isPlaying = false;
+                onPause = true;
             }
         });
         playingThread.start();
     }
-    public static void seek(int percentage , String forwardOrBackwards){
-        if (forwardOrBackwards.equals("forward")){
-            try {
-                long skippingPoint =(long)( (double)songTotalLength * ((double)percentage / 100.0) );
-                bis.skip(skippingPoint);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else if (forwardOrBackwards.equals("backward")){
-            try {
-                pause();
-                remainingBytes = bis.available();
-                bis.reset();
-                long skippingPoint = (songTotalLength - remainingBytes) - (long)((double)songTotalLength * ((double)percentage / 100.0));
-                bis.skip(skippingPoint);
-                resume();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+    public static void seek(int seekPoint) {
+        try {
+            bis.reset();
+            bis.skip(seekPoint);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public static void nextSong(){
