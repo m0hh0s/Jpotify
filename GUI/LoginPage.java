@@ -7,14 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.logging.FileHandler;
 
 public class LoginPage extends JFrame {
     private final String WINDOWS_TITLE = "Login";
     private final int WIDTH = 500, HEIGHT = 400;
-    private final int X = 140, Y = 140;
+    private final int X = 500, Y = 250;
     private JTextField id = new JTextField();
     private JButton loginButton = new JButton("Login");
     private Color VERY_DARK_GRAY = new Color(40,40,40);
