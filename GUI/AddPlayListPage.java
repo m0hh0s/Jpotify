@@ -40,4 +40,12 @@ public class AddPlayListPage extends JFrame {
         this.add(motherPanel);
         this.setVisible(true);
     }
+
+    public JTextField getPlayListName() {
+        return playListName;
+    }
+
+    public JButton getAddPlayListButton() {
+        return addPlayListButton;
+    }
 }

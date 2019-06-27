@@ -1,12 +1,11 @@
 package Controller;
 
+import GUI.AddPlayListPage;
 import GUI.CenterArea;
 import GUI.JpotifyGUI;
 import GUI.LoginPage;
-import Logic.MusicPlayer;
-import Logic.SavedFilesHandler;
-import Logic.SoundControl;
-import Logic.User;
+import Logic.*;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -17,7 +16,6 @@ public class Controller{
     private LoginPage loginPage;
     private JpotifyGUI jpotifyGUI;
     private User user;
-
     public Controller(){
         loginPage = new LoginPage();
         try {
@@ -53,11 +51,24 @@ public class Controller{
 
             }
         });
-//        jpotifyGUI.getLibraryAndPlayListArea().getPlusLabelForPlayList().addActionListener();
+        jpotifyGUI.getLibraryAndPlayListArea().getPlusLabelForPlayList().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddPlayListPage app = new AddPlayListPage();
+                app.getAddPlayListButton().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        user.getMusicLibrary().addPlaylist(new Playlist(app.getPlayListName().getText()));
+                        app.setVisible(false);
+                    }
+                });
+            }
+        });
 //        jpotifyGUI.getLibraryAndPlayListArea().getSongs().addActionListener();
 //        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener();
 //        jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener();
 //        jpotifyGUI.getLibraryAndPlayListArea().getArtist().addActionListener();
+//        jpotifyGUI.getMusicPlayerArea().getAddToPlayList().addActionListener();
         jpotifyGUI.getMusicPlayerArea().getBackwardButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
