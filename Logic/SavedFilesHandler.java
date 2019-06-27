@@ -30,7 +30,7 @@ public class SavedFilesHandler {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream("saveFiles\\" + username + ".ser");
+            fis = new FileInputStream("SaveFiles\\" + username + ".ser");
             ois = new ObjectInputStream(fis);
             tempUser = (User) ois.readObject();
             if (tempUser != null){

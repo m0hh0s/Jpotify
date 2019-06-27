@@ -48,16 +48,13 @@ public class LoginPage extends JFrame {
         motherPanel.add(buttonPanel);
         this.add(motherPanel);
         this.setVisible(true);
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    SavedFilesHandler.loadUserData(id.getText());
-                } catch (IOException ex) {
-                    User user = new User();
-                    User.setInstance(user);
-                }
-            }
-        });
+    }
+
+    public JButton getLoginButton() {
+        return loginButton;
+    }
+
+    public JTextField getTextField() {
+        return id;
     }
 }

@@ -1,7 +1,10 @@
 package Logic;
 
 import Logic.mp3agic.*;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,6 +17,7 @@ public class Song implements Serializable {
     private transient String artistName;
     private transient byte[] artwork;
     private MusicLibrary musicLibrary;
+    private transient int duration;
 
     public Song(String songAddress , MusicLibrary musicLibrary){
         this.songAddress = songAddress;
@@ -57,11 +61,28 @@ public class Song implements Serializable {
             this.artistName = tag.getArtist();
             this.artwork = tag.getAlbumImage();
             musicLibrary.handleAlbum(this);
-
+            File file = null;
+            try {
+                file = new File(this.getSongAddress());
+                int duration = 0;
+                AudioFile audioFile = AudioFileIO.read(file);
+                duration = audioFile.getAudioHeader().getTrackLength();
+                this.duration = duration;
+            }catch (Exception ignored){}
         } catch (NoSuchTagException | UnsupportedTagException | InvalidDataException | IOException e) {
             e.printStackTrace();
-            //musicLibrary.removeSong(this);
+            musicLibrary.removeSong(this);
         }
+    }
+
+    public int getTotalLength(){
+        return duration;
+    }
+
+    public int getRemaining(double percentage){
+        int remain = 0;
+        remain =(int) (this.getTotalLength() * percentage);
+        return remain;
     }
 
     @Override

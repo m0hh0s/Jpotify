@@ -15,8 +15,8 @@ public class MusicPlayerArea extends JPanel{
     private JButton forwardButton = new JButton();
     private JButton backwardButton = new JButton();
     private JButton addToPlayList = new JButton();
+    private JLabel totalTime = new JLabel("0:00");
     private JLabel timePassed = new JLabel("00:00");
-    private JLabel timeRemaining = new JLabel("00:00");
     private JLabel songName = new JLabel();
     private JLabel songSinger = new JLabel();
     private JPanel northPanel = new JPanel(new BorderLayout());
@@ -45,13 +45,15 @@ public class MusicPlayerArea extends JPanel{
         prepareSliderToAdd(soundSlider,NEAR_VERY_DARK_GRAY,new Dimension(70,0));
         //still have problem with this line
         prepareSliderToAdd(timeSlider,NEAR_VERY_DARK_GRAY,new Dimension(500,14));
+        prepareLabelToAdd(totalTime,Color.WHITE);
         prepareLabelToAdd(timePassed,Color.WHITE);
-        prepareLabelToAdd(timeRemaining,Color.WHITE);
         prepareSongInfoToAdd(songName,Color.WHITE,"Your Safe With Me",addFont("Fonts/greataris_destain-alternative/destain.ttf",19));
         prepareSongInfoToAdd(songSinger,Color.WHITE,"Sheriff",addFont("Fonts/greataris_destain-alternative/destain.ttf",14));
         this.add(westPanel,BorderLayout.WEST);
         this.add(centerPanel,BorderLayout.CENTER);
         this.add(soundSlider,BorderLayout.EAST);
+        soundSlider.setMaximum(100);
+        soundSlider.setMinimum(0);
     }
     private void prepareButtonPanelToAdd (Color backGroundColor){
         buttonPanel.add(replayButton);
@@ -67,9 +69,9 @@ public class MusicPlayerArea extends JPanel{
 
     }
     private void prepareSouthPanelToAdd(Color backGroundColor){
-        southPanel.add(timeRemaining);
-        southPanel.add(timeSlider);
         southPanel.add(timePassed);
+        southPanel.add(timeSlider);
+        southPanel.add(totalTime);
         southPanel.setBackground(backGroundColor);
 
     }
@@ -137,8 +139,7 @@ public class MusicPlayerArea extends JPanel{
      *    the {@code BILINEAR} hint is specified)
      * @return a scaled version of the original {@code BufferedImage}
      */
-    public BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint, boolean higherQuality)
-    {
+    public BufferedImage getScaledInstance(BufferedImage img, int targetWidth, int targetHeight, Object hint, boolean higherQuality) {
         int type = (img.getTransparency() == Transparency.OPAQUE) ?
                 BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
         BufferedImage ret = (BufferedImage)img;
@@ -196,5 +197,37 @@ public class MusicPlayerArea extends JPanel{
         ge.registerFont(customFont);
         return customFont;
     }
-
+    public JSlider getTimeSlider() {
+        return timeSlider;
+    }
+    public JSlider getSoundSlider() {
+        return soundSlider;
+    }
+    public JButton getReplayButton() {
+        return replayButton;
+    }
+    public JButton getPlayButton() {
+        return playButton;
+    }
+    public JButton getForwardButton() {
+        return forwardButton;
+    }
+    public JButton getBackwardButton() {
+        return backwardButton;
+    }
+    public JButton getAddToPlayList() {
+        return addToPlayList;
+    }
+    public JLabel getTotalTime() {
+        return totalTime;
+    }
+    public JLabel getTimePassed() {
+        return timePassed;
+    }
+    public JLabel getSongName() {
+        return songName;
+    }
+    public JLabel getSongSinger() {
+        return songSinger;
+    }
 }
