@@ -15,6 +15,7 @@ public class MusicPlayerArea extends JPanel{
     private JButton forwardButton = new JButton();
     private JButton backwardButton = new JButton();
     private JButton addToPlayList = new JButton();
+    private JButton muteButton = new JButton();
     private JLabel totalTime = new JLabel("0:00");
     private JLabel timePassed = new JLabel("00:00");
     private JLabel songName = new JLabel();
@@ -24,6 +25,7 @@ public class MusicPlayerArea extends JPanel{
     private JPanel southPanel = new JPanel(new FlowLayout());
     private JPanel westPanel = new JPanel(new BorderLayout());
     private JPanel centerPanel = new JPanel(new BorderLayout());
+    private JPanel eastPanel = new JPanel(new BorderLayout());
     private JPanel gridSongInfo = new JPanel(new GridLayout(2,1));
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
 
@@ -36,12 +38,17 @@ public class MusicPlayerArea extends JPanel{
         prepareButtonToAdd(backwardButton,"Icons/backwardIconWhite.png",20);
         prepareButtonToAdd(forwardButton,"Icons/forwardIconWhite.png",20);
         prepareButtonToAdd(addToPlayList,"Icons/listFreeIconWhite.png",20);
+        prepareButtonToAdd(muteButton,"Icons/onlineIcon.png",20);
         prepareButtonPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareNorthPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareSouthPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareWestPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareCenterPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareGridSongInfoPanelToAdd(new Dimension(200,70),NEAR_VERY_DARK_GRAY);
+        eastPanel.setBackground(NEAR_VERY_DARK_GRAY);
+        eastPanel.add(muteButton);
+        eastPanel.add(soundSlider,BorderLayout.EAST);
+
         prepareSliderToAdd(soundSlider,NEAR_VERY_DARK_GRAY,new Dimension(70,0));
         //still have problem with this line
         prepareSliderToAdd(timeSlider,NEAR_VERY_DARK_GRAY,new Dimension(500,14));
@@ -51,7 +58,7 @@ public class MusicPlayerArea extends JPanel{
         prepareSongInfoToAdd(songSinger,Color.WHITE,"Sheriff",addFont("Fonts/greataris_destain-alternative/destain.ttf",14));
         this.add(westPanel,BorderLayout.WEST);
         this.add(centerPanel,BorderLayout.CENTER);
-        this.add(soundSlider,BorderLayout.EAST);
+        this.add(eastPanel,BorderLayout.EAST);
         soundSlider.setMaximum(100);
         soundSlider.setMinimum(0);
     }
