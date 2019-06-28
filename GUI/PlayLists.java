@@ -1,13 +1,13 @@
 package GUI;
-
+import Logic.Playlist;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayLists extends JPanel {
-    private final PlayList favourite = new PlayList("Favourite");
-    private final PlayList sharedSongs = new PlayList("Shared Playlist");
-    private ArrayList<PlayList> playLists = new ArrayList<>();
+    private final Playlist favourite = new Playlist("Favourite");
+    private final Playlist sharedSongs = new Playlist("Shared Playlist");
+    private ArrayList<Playlist> playLists = new ArrayList<>();
     private Color NEAR_BLACK = new Color(28,28,28);
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.PAGE_AXIS);
 
@@ -19,11 +19,11 @@ public class PlayLists extends JPanel {
         addPlayListButton();
         this.setBackground(NEAR_BLACK);
     }
-    public void addPlayList(PlayList playList){
+    public void addPlayList(Playlist playList){
         playLists.add(playList);
     }
     private void addPlayListButton(){
-        for(PlayList playList:playLists){
+        for(Playlist playList:playLists){
             JPanel gridPanel = new JPanel(new GridLayout(1,1));
             gridPanel.setMaximumSize(new Dimension(140,40));
             JButton btn = new JButton(playList.getName());
@@ -37,7 +37,7 @@ public class PlayLists extends JPanel {
             this.add(gridPanel);
         }
     }
-    public ArrayList<PlayList> getPlayLists() {
+    public ArrayList<Playlist> getPlayLists() {
         return playLists;
     }
 }
