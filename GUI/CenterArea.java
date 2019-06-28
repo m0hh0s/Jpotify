@@ -3,13 +3,10 @@ package GUI;
 import Logic.Song;
 import Logic.User;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,7 +19,7 @@ public class CenterArea extends JPanel{
         this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         this.setBackground(VERY_DARK_GRAY);
         this.add(Box.createRigidArea(new Dimension(40,10)));
-        this.setVisible(true);
+//        this.setVisible(true);
     }
     public void preparePlayListsToAdd(ArrayList arrayList) throws IOException {
         //  btn artwork
