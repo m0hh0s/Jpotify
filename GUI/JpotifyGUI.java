@@ -66,7 +66,7 @@ public class JpotifyGUI extends JFrame {
         this.add(musicPlayerArea,BorderLayout.SOUTH);
         this.add(eastArea,BorderLayout.EAST);
         this.add(centerAndWestArea);
-        //this.setVisible(true);
+//        this.setVisible(true);
     }
     private Font addFont(String path,float size)  {
         Font customFont = null;
@@ -81,6 +81,9 @@ public class JpotifyGUI extends JFrame {
         //register the font
         ge.registerFont(customFont);
         return customFont;
+    }
+    public void changeCenterArea (CenterArea centerArea){
+        centerScrollPane.setViewportView(centerArea);
     }
     public LibraryAndPlayListArea getLibraryAndPlayListArea() {
         return libraryAndPlayListArea;
