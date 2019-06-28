@@ -1,6 +1,8 @@
 //بسم الله الرحمن الرحیم
 package GUI;
 
+import Logic.Playlist;
+
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -13,7 +15,7 @@ public class JpotifyGUI extends JFrame {
     private final String WINDOWS_TITLE = "Jpotify";
     private final int WIDTH = 1132, HEIGHT = 700;
     private final int X = 70, Y = 70;
-    private ArrayList<PlayList> playLists;
+    private ArrayList<Playlist> playLists;
     private LibraryAndPlayListArea libraryAndPlayListArea = new LibraryAndPlayListArea();
     private MusicPlayerArea musicPlayerArea = new MusicPlayerArea();
     private FriendListArea friendListArea = new FriendListArea();
@@ -100,7 +102,7 @@ public class JpotifyGUI extends JFrame {
     public JScrollPane getLibraryScrollPane() {
         return libraryScrollPane;
     }
-    public ArrayList<PlayList> getPlayLists() {
+    public ArrayList<Playlist> getPlayLists() {
         return playLists;
     }
     public CenterArea getCenterArea() {

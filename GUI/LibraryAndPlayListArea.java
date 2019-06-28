@@ -16,10 +16,8 @@ public class LibraryAndPlayListArea extends JPanel {
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.PAGE_AXIS);
     private JButton plusButtonForSong = new JButton();
     private JButton plusButtonForPlayList = new JButton();
-    private JButton recentlyPlayed = new JButton();
     private JButton songs = new JButton();
     private JButton albums = new JButton();
-    private JButton artist = new JButton();
     private JButton playListButton = new JButton();
     private JLabel img = new JLabel();
     private JLabel headerLabel = new JLabel("PlayLists");
@@ -36,10 +34,8 @@ public class LibraryAndPlayListArea extends JPanel {
         setImageIconForLabel(new FileInputStream("Icons/SongImage.png"));
         prepareButtonToAdd(plusButtonForSong,"Icons/plusIconWhite2.png","Add Song");
         prepareButtonToAdd(plusButtonForPlayList,"Icons/plusIconWhite2.png","Add PlayList");
-        prepareButtonToAdd(recentlyPlayed,"Recently Played");
         prepareButtonToAdd(songs,"Songs");
         prepareButtonToAdd(albums,"Albums");
-        prepareButtonToAdd(artist,"Artists");
         prepareButtonToAdd(playListButton,"PlayLists");
         prepareScrollToAdd(playListScroll);
         preparePanelToAdd(libraryGridPanel,new Dimension(140,20),NEAR_BLACK);
@@ -91,11 +87,9 @@ public class LibraryAndPlayListArea extends JPanel {
         scrollPane.setForeground(Color.WHITE);
     }
     private void prepareLibraryGridPanelToAdd(){
-        libraryGridPanel.add(recentlyPlayed);
         libraryGridPanel.add(songs);
         libraryGridPanel.add(playListButton);
         libraryGridPanel.add(albums);
-        libraryGridPanel.add(artist);
         libraryGridPanel.add(plusButtonForSong);
     }
     private void preparePlayListHeaderGridPanelToAdd(){
@@ -152,20 +146,12 @@ public class LibraryAndPlayListArea extends JPanel {
         return plusButtonForPlayList;
     }
 
-    public JButton getRecentlyPlayed() {
-        return recentlyPlayed;
-    }
-
     public JButton getSongs() {
         return songs;
     }
 
     public JButton getAlbums() {
         return albums;
-    }
-
-    public JButton getArtist() {
-        return artist;
     }
 
     public JButton getPlayListButton() {
