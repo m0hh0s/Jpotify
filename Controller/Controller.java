@@ -48,13 +48,15 @@ public class Controller{
                 user.getMusicLibrary().addSong();
             }
         });
-        jpotifyGUI.getLibraryAndPlayListArea().getPlusLabelForPlayList().addActionListener(new ActionListener() {
+
+        //why repeating it??
+        jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForPlayList().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        jpotifyGUI.getLibraryAndPlayListArea().getPlusLabelForPlayList().addActionListener(new ActionListener() {
+        jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForPlayList().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddPlayListPage app = new AddPlayListPage();
@@ -73,6 +75,7 @@ public class Controller{
                 try {
                     centerArea = new CenterArea();
                     centerArea.preparePlayListsToAdd(user.getMusicLibrary().getSongs());
+                    jpotifyGUI.changeCenterArea(centerArea);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
