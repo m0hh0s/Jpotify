@@ -35,7 +35,7 @@ public class JpotifyGUI extends JFrame {
 
     public JpotifyGUI() throws IOException, FontFormatException {
         super();
-        playLists = libraryAndPlayListArea.getPlayLists().getPlayLists();
+        //playLists = libraryAndPlayListArea.getPlayLists().getPlayLists();
         centerArea = new CenterArea();
         centerScrollPane.setViewportView(centerArea);
         UIManager.put("ScrollBar.thumb", new ColorUIResource(NEAR_VERY_DARK_GRAY));
