@@ -15,7 +15,7 @@ public class LibraryAndPlayListArea extends JPanel {
     private PlayLists playLists = new PlayLists();
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.PAGE_AXIS);
     private JButton plusButtonForSong = new JButton();
-    private JButton plusLabelForPlayList = new JButton();
+    private JButton plusButtonForPlayList = new JButton();
     private JButton recentlyPlayed = new JButton();
     private JButton songs = new JButton();
     private JButton albums = new JButton();
@@ -35,7 +35,7 @@ public class LibraryAndPlayListArea extends JPanel {
         this.setBackground(NEAR_BLACK);
         setImageIconForLabel(new FileInputStream("Icons/SongImage.png"));
         prepareButtonToAdd(plusButtonForSong,"Icons/plusIconWhite2.png","Add Song");
-        prepareButtonToAdd(plusLabelForPlayList,"Icons/plusIconWhite2.png","Add PlayList");
+        prepareButtonToAdd(plusButtonForPlayList,"Icons/plusIconWhite2.png","Add PlayList");
         prepareButtonToAdd(recentlyPlayed,"Recently Played");
         prepareButtonToAdd(songs,"Songs");
         prepareButtonToAdd(albums,"Albums");
@@ -105,7 +105,7 @@ public class LibraryAndPlayListArea extends JPanel {
         playListHeaderGridPanel.add(headerLabel);
     }
     private void prepareAddPlayListGridPanelToAdd(){
-        addPlayListGridPanel.add(plusLabelForPlayList);
+        addPlayListGridPanel.add(plusButtonForPlayList);
     }
     private void prepareImagePanelToAdd(){
         imagePanel.add(img);
@@ -148,8 +148,8 @@ public class LibraryAndPlayListArea extends JPanel {
         return plusButtonForSong;
     }
 
-    public JButton getPlusLabelForPlayList() {
-        return plusLabelForPlayList;
+    public JButton getPlusButtonForPlayList() {
+        return plusButtonForPlayList;
     }
 
     public JButton getRecentlyPlayed() {
