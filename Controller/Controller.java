@@ -37,6 +37,7 @@ public class Controller{
                 User.setInstance(user);
                 loginPage.setVisible(false);
                 jpotifyGUI.setVisible(true);
+                jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().setPlatlists(user.getMusicLibrary().getPlaylists());
             }
         });
         jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForSong().addActionListener(new ActionListener() {
@@ -52,7 +53,10 @@ public class Controller{
                 app.getAddPlayListButton().addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        user.getMusicLibrary().addPlaylist(new Playlist(app.getPlayListName().getText()));
+                        Playlist playlist = new Playlist(app.getPlayListName().getText());
+                        user.getMusicLibrary().addPlaylist(playlist);
+                        jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().addPlayList(playlist);
+                        jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().validate();
                         app.setVisible(false);
                     }
                 });
