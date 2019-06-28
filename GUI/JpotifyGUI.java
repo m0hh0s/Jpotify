@@ -30,10 +30,11 @@ public class JpotifyGUI extends JFrame {
     private JPanel idPanel = new JPanel(new BorderLayout());
     private Color NEAR_BLACK = new Color(28,28,28);
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
+
     public JpotifyGUI() throws IOException, FontFormatException {
         super();
         playLists = libraryAndPlayListArea.getPlayLists().getPlayLists();
-        centerArea = new CenterArea(playLists);
+        centerArea = new CenterArea();
         centerScrollPane.setViewportView(centerArea);
         UIManager.put("ScrollBar.thumb", new ColorUIResource(NEAR_VERY_DARK_GRAY));
         centerScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() );
@@ -65,7 +66,7 @@ public class JpotifyGUI extends JFrame {
         this.add(musicPlayerArea,BorderLayout.SOUTH);
         this.add(eastArea,BorderLayout.EAST);
         this.add(centerAndWestArea);
-        this.setVisible(true);
+        //this.setVisible(true);
     }
     private Font addFont(String path,float size)  {
         Font customFont = null;
@@ -81,39 +82,30 @@ public class JpotifyGUI extends JFrame {
         ge.registerFont(customFont);
         return customFont;
     }
-
     public LibraryAndPlayListArea getLibraryAndPlayListArea() {
         return libraryAndPlayListArea;
     }
-
     public MusicPlayerArea getMusicPlayerArea() {
         return musicPlayerArea;
     }
-
     public FriendListArea getFriendListArea() {
         return friendListArea;
     }
-
     public JScrollPane getFriendScrollPane() {
         return friendScrollPane;
     }
-
     public JScrollPane getLibraryScrollPane() {
         return libraryScrollPane;
     }
-
     public ArrayList<PlayList> getPlayLists() {
         return playLists;
     }
-
     public CenterArea getCenterArea() {
         return centerArea;
     }
-
     public JLabel getFriendAreaHeader() {
         return friendAreaHeader;
     }
-
     public JPanel getEastArea() {
         return eastArea;
     }
