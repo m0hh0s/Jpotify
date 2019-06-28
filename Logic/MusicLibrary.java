@@ -15,12 +15,11 @@ public class MusicLibrary implements Serializable {
     private ArrayList<Playlist> playlists;
 
     public MusicLibrary() {
-//        this.songs = (ArrayList<Song>) Collections.synchronizedList(new ArrayList<Song>());
-//        this.albums = (ArrayList<Album>) Collections.synchronizedList(new ArrayList<Album>());
-//        this.playlists = (ArrayList<Playlist>) Collections.synchronizedList(new ArrayList<Playlist>());
         songs = new ArrayList<>();
         albums = new ArrayList<>();
         playlists = new ArrayList<>();
+        playlists.add(new Playlist("Shared Playlist"));
+        playlists.add(new Playlist("Favourites"));
     }
 
     public ArrayList<Song> getSongs() {

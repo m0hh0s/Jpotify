@@ -6,6 +6,7 @@ import GUI.JpotifyGUI;
 import GUI.LoginPage;
 import Logic.*;
 
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -16,6 +17,8 @@ public class Controller{
     private LoginPage loginPage;
     private JpotifyGUI jpotifyGUI;
     private User user;
+    private CenterArea centerArea;
+    boolean mute;
     public Controller(){
         loginPage = new LoginPage();
         try {
@@ -64,7 +67,17 @@ public class Controller{
                 });
             }
         });
-//        jpotifyGUI.getLibraryAndPlayListArea().getSongs().addActionListener();
+        jpotifyGUI.getLibraryAndPlayListArea().getSongs().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    centerArea = new CenterArea();
+                    centerArea.preparePlayListsToAdd(user.getMusicLibrary().getSongs());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 //        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener();
 //        jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener();
 //        jpotifyGUI.getLibraryAndPlayListArea().getArtist().addActionListener();
@@ -114,6 +127,29 @@ public class Controller{
                 }
             }
         });
+        jpotifyGUI.getMusicPlayerArea().getMuteButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SoundControl.mute();
+                JButton muteButton = jpotifyGUI.getMusicPlayerArea().getMuteButton();
+                if (mute) {
+                    try {
+                        jpotifyGUI.getMusicPlayerArea().prepareButtonToAdd(muteButton, "Icons\\muteIcon.png", 20);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    mute = false;
+                }else {
+                    try {
+                        jpotifyGUI.getMusicPlayerArea().prepareButtonToAdd(muteButton, "Icons\\onlineIcon.png", 20);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    mute = true;
+                }
+
+            }
+        });
         jpotifyGUI.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -121,6 +157,5 @@ public class Controller{
                 super.windowClosing(e);
             }
         });
-
     }
 }

@@ -38,7 +38,7 @@ public class MusicPlayerArea extends JPanel{
         prepareButtonToAdd(backwardButton,"Icons/backwardIconWhite.png",20);
         prepareButtonToAdd(forwardButton,"Icons/forwardIconWhite.png",20);
         prepareButtonToAdd(addToPlayList,"Icons/listFreeIconWhite.png",20);
-        prepareButtonToAdd(muteButton,"Icons/onlineIcon.png",20);
+        prepareButtonToAdd(muteButton,"Icons\\muteIcon.png",20);
         prepareButtonPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareNorthPanelToAdd(NEAR_VERY_DARK_GRAY);
         prepareSouthPanelToAdd(NEAR_VERY_DARK_GRAY);
@@ -106,7 +106,7 @@ public class MusicPlayerArea extends JPanel{
         slider.setBackground(backGroundColor);
         slider.setPreferredSize(dimension);
     }
-    private void prepareButtonToAdd(JButton btn,String path,int size) throws IOException {
+    public void prepareButtonToAdd(JButton btn,String path,int size) throws IOException {
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
         btn.setPreferredSize(new Dimension(size,size));
@@ -237,4 +237,10 @@ public class MusicPlayerArea extends JPanel{
     public JLabel getSongSinger() {
         return songSinger;
     }
+
+    public JButton getMuteButton() {
+        return muteButton;
+    }
+
+
 }
