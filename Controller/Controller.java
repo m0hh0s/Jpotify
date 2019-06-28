@@ -81,7 +81,18 @@ public class Controller{
                 }
             }
         });
-//        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener();
+        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    centerArea = new CenterArea();
+                    centerArea.preparePlayListsToAdd(user.getMusicLibrary().getPlaylists());
+                    jpotifyGUI.changeCenterArea(centerArea);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 //        jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener();
 //        jpotifyGUI.getLibraryAndPlayListArea().getArtist().addActionListener();
 //        jpotifyGUI.getMusicPlayerArea().getAddToPlayList().addActionListener();
