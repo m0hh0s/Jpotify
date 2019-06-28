@@ -15,11 +15,12 @@ public class Controller{
     private JpotifyGUI jpotifyGUI;
     private User user;
     private CenterArea centerArea;
-    boolean mute;
+    private boolean mute;
     public Controller(){
         loginPage = new LoginPage();
         try {
             jpotifyGUI = new JpotifyGUI();
+            MusicPlayer.setJpotifyGUI(jpotifyGUI);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
@@ -64,7 +65,7 @@ public class Controller{
                 if (user.getMusicLibrary().getSongs().size() > 0) {
                     try {
                         centerArea = new CenterArea();
-                        centerArea.preparePlayListsToAdd(user.getMusicLibrary().getSongs());
+                        centerArea.preparePlayListsToAdd(user.getMusicLibrary().getSongs() , "songs");
                         jpotifyGUI.changeCenterArea(centerArea);
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -72,14 +73,25 @@ public class Controller{
                 }
             }
         });
-//        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener();
+        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    centerArea = new CenterArea();
+                    centerArea.preparePlayListsToAdd(user.getMusicLibrary().getPlaylists() , "playlist");
+                    jpotifyGUI.changeCenterArea(centerArea);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (user.getMusicLibrary().getAlbums().size() > 0) {
                     try {
                         centerArea = new CenterArea();
-                        centerArea.preparePlayListsToAdd(user.getMusicLibrary().getAlbums());
+                        centerArea.preparePlayListsToAdd(user.getMusicLibrary().getAlbums(), "album");
                         jpotifyGUI.changeCenterArea(centerArea);
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -87,22 +99,23 @@ public class Controller{
                 }
             }
         });
-//        jpotifyGUI.getLibraryAndPlayListArea().getArtist().addActionListener();
         jpotifyGUI.getMusicPlayerArea().getAddToPlayList().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddSongToPlayListPage astpp = new AddSongToPlayListPage(user.getMusicLibrary().getPlaylists());
-                astpp.getAddSongTOPlayListButton().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        for (JCheckBox checkBox : astpp.getMap().keySet()){
-                            if (checkBox.isSelected()){
-                                astpp.getMap().get(checkBox).addSong(MusicPlayer.getCurrentlyPlaying());
+                if (MusicPlayer.getCurrentlyPlaying() != null) {
+                    AddSongToPlayListPage astpp = new AddSongToPlayListPage(user.getMusicLibrary().getPlaylists());
+                    astpp.getAddSongTOPlayListButton().addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            for (JCheckBox checkBox : astpp.getMap().keySet()) {
+                                if (checkBox.isSelected()) {
+                                    astpp.getMap().get(checkBox).addSong(MusicPlayer.getCurrentlyPlaying());
+                                }
                             }
+                            astpp.setVisible(false);
                         }
-                        astpp.setVisible(false);
-                    }
-                });
+                    });
+                }
             }
         });
         jpotifyGUI.getMusicPlayerArea().getBackwardButton().addActionListener(new ActionListener() {
@@ -126,8 +139,8 @@ public class Controller{
         jpotifyGUI.getMusicPlayerArea().getPlayButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //MusicPlayer.resume();
-                MusicPlayer.playAList(user.getMusicLibrary().getSongs() , jpotifyGUI);
+                MusicPlayer.pauseOrResume();
+               // MusicPlayer.playAList(user.getMusicLibrary().getSongs() , jpotifyGUI);
             }
         });
         jpotifyGUI.getMusicPlayerArea().getSoundSlider().addChangeListener(new ChangeListener() {
