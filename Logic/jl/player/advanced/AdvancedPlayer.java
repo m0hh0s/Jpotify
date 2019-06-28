@@ -234,7 +234,7 @@ public class AdvancedPlayer
 	/**
 	 * closes the player and notifies <code>PlaybackListener</code>
 	 */
-	public void stop()
+	public void stop() throws NullPointerException
 	{
 		listener.playbackFinished(createEvent(PlaybackEvent.STOPPED));
 		close();
