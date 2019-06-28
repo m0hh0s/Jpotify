@@ -1,10 +1,13 @@
 package GUI;
 
+import Logic.Playlist;
+
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddSongToPlayListPage extends JFrame {
     private final String WINDOWS_TITLE = "Add Song To PlayList";
@@ -18,7 +21,8 @@ public class AddSongToPlayListPage extends JFrame {
     private JPanel buttonPanel = new JPanel(new GridLayout(1,1));
     private BoxLayout boxLayout = new BoxLayout(motherPanel,BoxLayout.PAGE_AXIS);
     private JScrollPane scrollPane = new JScrollPane();
-    public AddSongToPlayListPage(ArrayList<PlayList> playLists){
+    private HashMap<JCheckBox , Playlist> map = new HashMap<>();
+    public AddSongToPlayListPage(ArrayList<Playlist> playLists){
         super();
         this.setLayout(new BorderLayout());
         this.setTitle(WINDOWS_TITLE);
@@ -35,9 +39,10 @@ public class AddSongToPlayListPage extends JFrame {
         motherPanel.setLayout(boxLayout);
         motherPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         motherPanel.setMaximumSize(new Dimension(300,350));
-        for(PlayList playList:playLists){
+        for(Playlist playList : playLists){
             JPanel flowPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JCheckBox checkBox = new JCheckBox();
+            map.put(checkBox , playList);
             JLabel playListName = new JLabel();
             Font playListNameFont = new Font("optima",Font.BOLD,14);
             playListName.setText(playList.getName());
@@ -60,5 +65,13 @@ public class AddSongToPlayListPage extends JFrame {
         this.add(scrollPane);
 //        this.add(addSongTOPlayListButton);
         this.setVisible(true);
+    }
+
+    public JButton getAddSongTOPlayListButton() {
+        return addSongTOPlayListButton;
+    }
+
+    public HashMap<JCheckBox, Playlist> getMap() {
+        return map;
     }
 }

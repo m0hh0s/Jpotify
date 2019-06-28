@@ -1,5 +1,6 @@
 package GUI;
 
+import Logic.Album;
 import Logic.Song;
 import Logic.User;
 
@@ -25,21 +26,30 @@ public class CenterArea extends JPanel{
         this.add(Box.createRigidArea(new Dimension(40,10)));
 //        this.setVisible(true);
     }
+
     public void preparePlayListsToAdd(ArrayList arrayList) throws IOException {
-        //  btn artwork
-        //  label title
         if (arrayList.get(0) instanceof Song){
             for (Object obj : arrayList){
                 Song song = (Song) obj;
                 songButtonCreator(song);
             }
+        }else if (arrayList.get(0) instanceof Album){
+            for (Object obj : arrayList){
+                Album album = (Album) obj;
+                albumButtonCreator(album);
+            }
         }
     }
 
-    private void songButtonCreator(Song song) throws IOException {
+
+    private void albumButtonCreator(Album album) throws IOException {
         JButton listButton = new JButton();
-        JButton deleteButton = new JButton();
+        //JButton deleteButton = new JButton();
+
         listButton.setLayout(new BorderLayout());
+        listButton.setMaximumSize(new Dimension(700,70));
+        listButton.setBorderPainted(false);
+        listButton.setFocusPainted(false);
 
         JPanel labelPanel = new JPanel(new BorderLayout());
         JPanel motherPanel = new JPanel(new BorderLayout());
@@ -48,9 +58,60 @@ public class CenterArea extends JPanel{
         JLabel artWork = new JLabel();
         Font topLabelFont = new Font("optima",Font.PLAIN,14);
         Font bottomLabelFont = new Font("optima",Font.BOLD,12);
+
+
+//        setImageIconForButton("Icons/crossIcon.png",deleteButton,28);
+//        deleteButton.setMaximumSize(new Dimension(28,28));
+//        deleteButton.setBorderPainted(false);
+//        deleteButton.setFocusPainted(false);
+//        deleteButton.setBackground(NEAR_VERY_DARK_GRAY);
+//        deleteButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                User.getInstance().getMusicLibrary().removeSong(album);
+//            }
+//        });
+
+        //must add space before the song and artist name
+        topLabel.setText("  " + album.getTitle());
+        topLabel.setFont(topLabelFont);
+        bottomLabel.setText("  " + album.getArtistName());
+        bottomLabel.setFont(bottomLabelFont);
+        topLabel.setForeground(Color.WHITE);
+        bottomLabel.setForeground(Color.WHITE);
+
+        setImageIconForArtWork(album.getArtwork(),artWork,70);
+
+        labelPanel.add(topLabel,BorderLayout.NORTH);
+        labelPanel.add(bottomLabel,BorderLayout.SOUTH);
+
+        motherPanel.add(labelPanel,BorderLayout.WEST);
+        listButton.add(motherPanel);
+        listButton.add(artWork,BorderLayout.WEST);
+        //listButton.add(deleteButton,BorderLayout.EAST);
+        motherPanel.setBackground(NEAR_VERY_DARK_GRAY);
+        labelPanel.setBackground(NEAR_VERY_DARK_GRAY);
+        listButton.setBackground(NEAR_VERY_DARK_GRAY);
+        this.add(listButton);
+
+    }
+    private void songButtonCreator(Song song) throws IOException {
+        JButton listButton = new JButton();
+        JButton deleteButton = new JButton();
+
+        listButton.setLayout(new BorderLayout());
         listButton.setMaximumSize(new Dimension(700,70));
         listButton.setBorderPainted(false);
         listButton.setFocusPainted(false);
+
+        JPanel labelPanel = new JPanel(new BorderLayout());
+        JPanel motherPanel = new JPanel(new BorderLayout());
+        JLabel topLabel = new JLabel();
+        JLabel bottomLabel = new JLabel();
+        JLabel artWork = new JLabel();
+        Font topLabelFont = new Font("optima",Font.PLAIN,14);
+        Font bottomLabelFont = new Font("optima",Font.BOLD,12);
+
 
         setImageIconForButton("Icons/crossIcon.png",deleteButton,28);
         deleteButton.setMaximumSize(new Dimension(28,28));
@@ -72,7 +133,7 @@ public class CenterArea extends JPanel{
         topLabel.setForeground(Color.WHITE);
         bottomLabel.setForeground(Color.WHITE);
 
-        setImageIconForArtWork(song,artWork,70);
+        setImageIconForArtWork(song.getArtwork(),artWork,70);
 
         labelPanel.add(topLabel,BorderLayout.NORTH);
         labelPanel.add(bottomLabel,BorderLayout.SOUTH);
@@ -94,8 +155,8 @@ public class CenterArea extends JPanel{
         graphics2D.dispose();
         btn.setIcon(new ImageIcon(finalImg));
     }
-    private void setImageIconForArtWork(Song song , JLabel artWork,int size) throws IOException {
-        ByteArrayInputStream in = new ByteArrayInputStream(song.getArtwork());
+    private void setImageIconForArtWork(byte[] bytes , JLabel artWork,int size) throws IOException {
+        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         BufferedImage img = ImageIO.read(in);
         BufferedImage finalImg = new BufferedImage(size,size,img.getType());
         Graphics2D graphics2D = finalImg.createGraphics();
