@@ -1,9 +1,6 @@
 package Controller;
 
-import GUI.AddPlayListPage;
-import GUI.CenterArea;
-import GUI.JpotifyGUI;
-import GUI.LoginPage;
+import GUI.*;
 import Logic.*;
 
 import javax.swing.*;
@@ -48,14 +45,6 @@ public class Controller{
                 user.getMusicLibrary().addSong();
             }
         });
-
-        //why repeating it??
-        jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForPlayList().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForPlayList().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,19 +61,50 @@ public class Controller{
         jpotifyGUI.getLibraryAndPlayListArea().getSongs().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    centerArea = new CenterArea();
-                    centerArea.preparePlayListsToAdd(user.getMusicLibrary().getSongs());
-                    jpotifyGUI.changeCenterArea(centerArea);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                if (user.getMusicLibrary().getSongs().size() > 0) {
+                    try {
+                        centerArea = new CenterArea();
+                        centerArea.preparePlayListsToAdd(user.getMusicLibrary().getSongs());
+                        jpotifyGUI.changeCenterArea(centerArea);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
 //        jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener();
-//        jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener();
+        jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (user.getMusicLibrary().getAlbums().size() > 0) {
+                    try {
+                        centerArea = new CenterArea();
+                        centerArea.preparePlayListsToAdd(user.getMusicLibrary().getAlbums());
+                        jpotifyGUI.changeCenterArea(centerArea);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
 //        jpotifyGUI.getLibraryAndPlayListArea().getArtist().addActionListener();
-//        jpotifyGUI.getMusicPlayerArea().getAddToPlayList().addActionListener();
+        jpotifyGUI.getMusicPlayerArea().getAddToPlayList().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddSongToPlayListPage astpp = new AddSongToPlayListPage(user.getMusicLibrary().getPlaylists());
+                astpp.getAddSongTOPlayListButton().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (JCheckBox checkBox : astpp.getMap().keySet()){
+                            if (checkBox.isSelected()){
+                                astpp.getMap().get(checkBox).addSong(MusicPlayer.getCurrentlyPlaying());
+                            }
+                        }
+                        astpp.setVisible(false);
+                    }
+                });
+            }
+        });
         jpotifyGUI.getMusicPlayerArea().getBackwardButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
