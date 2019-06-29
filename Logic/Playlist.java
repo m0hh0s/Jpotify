@@ -44,4 +44,19 @@ public class Playlist implements Serializable {
     public void removeSong(Song song){
         songs.remove(song);
     }
+
+    /**
+     * compares songs to see if we should add the new one
+     * or it is repeated
+     * @param newSong
+     * @return 0 if the new song isnt exists in song arrayList and
+     * 1 if sont already exists
+     */
+    public int compareSong (Song newSong){
+        for(Song oldSong:songs){
+            if(oldSong.equals(newSong))
+                return 1;
+        }
+        return 0;
+    }
 }

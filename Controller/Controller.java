@@ -154,7 +154,9 @@ public class Controller{
                         public void actionPerformed(ActionEvent e) {
                             for (JCheckBox checkBox : astpp.getMap().keySet()) {
                                 if (checkBox.isSelected()) {
-                                    astpp.getMap().get(checkBox).addSong(MusicPlayer.getCurrentlyPlaying());
+                                    int result = astpp.getMap().get(checkBox).compareSong(MusicPlayer.getCurrentlyPlaying());
+                                    if(result == 0)
+                                        astpp.getMap().get(checkBox).addSong(MusicPlayer.getCurrentlyPlaying());
                                 }
                             }
                             astpp.setVisible(false);
