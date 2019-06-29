@@ -114,10 +114,7 @@ public class MusicPlayer {
                         }
                     }
                     if (isOnLoop && (i == songsToBePlayed.size() - 1) ){
-                        playAList(startingSong , songsToBePlayed);
-                        currentlyPlaying = null;
-                        isPlaying = false;
-                        onPause = true;
+                        i = -1;
                     }
                 }
                 currentlyPlaying = null;
