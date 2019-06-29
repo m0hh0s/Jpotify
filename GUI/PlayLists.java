@@ -17,9 +17,9 @@ public class PlayLists extends JPanel {
     }
     public void addPlayList(Playlist playList){
         playLists.add(playList);
-        addPlayListButton();
+        addPlayListButton(playList);
     }
-    private void addPlayListButton(){
+    private void addPlayListButtonForFirstTime(){
         for(Playlist playList:playLists){
             JPanel gridPanel = new JPanel(new GridLayout(1,1));
             gridPanel.setMaximumSize(new Dimension(140,40));
@@ -34,9 +34,21 @@ public class PlayLists extends JPanel {
             this.add(gridPanel);
         }
     }
-
+    private void addPlayListButton(Playlist playlist){
+        JPanel gridPanel = new JPanel(new GridLayout(1,1));
+        gridPanel.setMaximumSize(new Dimension(140,40));
+        JButton btn = new JButton(playlist.getName());
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setBackground(NEAR_BLACK);
+        btn.setForeground(Color.WHITE);
+        Font buttonFont = new Font("optima",Font.PLAIN,13);
+        btn.setFont(buttonFont);
+        gridPanel.add(btn);
+        this.add(gridPanel);
+    }
     public void setPlatlists(ArrayList<Playlist> playlists) {
         this.playLists = playlists;
-        addPlayListButton();
+        addPlayListButtonForFirstTime();
     }
 }
