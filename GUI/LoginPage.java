@@ -1,14 +1,12 @@
 package GUI;
 
-import Logic.SavedFilesHandler;
-import Logic.User;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
+/**
+ * the first page to be seen
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class LoginPage extends JFrame {
     private final String WINDOWS_TITLE = "Login";
     private final int WIDTH = 500, HEIGHT = 400;
@@ -22,6 +20,11 @@ public class LoginPage extends JFrame {
     private JPanel motherPanel = new JPanel();
     private BoxLayout boxLayout = new BoxLayout(motherPanel,BoxLayout.PAGE_AXIS);
 
+    /**
+     * sets the layout title and size of the frame
+     * set the settings for button and add components
+     * to the panels
+     */
     public LoginPage(){
         super();
         this.setLayout(new BorderLayout());

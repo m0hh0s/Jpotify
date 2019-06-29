@@ -13,15 +13,31 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * center area is for showing songs and playLists and ...
+ * in a list way and being able to delete some of them
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class CenterArea extends JPanel{
     private Color VERY_DARK_GRAY = new Color(40,40,40);
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
     private Playlist playlistToRemoveFrom = null;
 
+    /**
+     * sets the playlistToRemoveFrom
+     * @param playlistToRemoveFrom
+     * @throws IOException
+     */
     public CenterArea(Playlist playlistToRemoveFrom) throws IOException {
         this();
         this.playlistToRemoveFrom = playlistToRemoveFrom;
     }
+
+    /**
+     * sets the layout and background
+     * @throws IOException
+     */
     public CenterArea() throws IOException {
         super();
         this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -29,6 +45,13 @@ public class CenterArea extends JPanel{
         this.add(Box.createRigidArea(new Dimension(40,10)));
     }
 
+    /**
+     * find out what kind the array is and
+     * calls the propere method
+     * @param arrayList array list of songs ,albums or playLists
+     * @param status shows the status of array
+     * @throws IOException
+     */
     public void preparePlayListsToAdd(ArrayList arrayList , String status ) throws IOException {
         if (arrayList.get(0) instanceof Song){
             for (Object obj : arrayList){
@@ -48,7 +71,13 @@ public class CenterArea extends JPanel{
         }
     }
 
-
+    /**
+     * creat buttons for albums
+     * set its settings and add
+     * them to the layout
+     * @param album
+     * @throws IOException
+     */
     private void albumButtonCreator(Album album) throws IOException {
         JButton listButton = new JButton();
         //JButton deleteButton = new JButton();
@@ -116,6 +145,16 @@ public class CenterArea extends JPanel{
         this.add(listButton);
 
     }
+
+    /**
+     * creat buttons for songs
+     * set its settings and add
+     * them to the layout
+     * @param song song
+     * @param songs arrayList of songs
+     * @param status
+     * @throws IOException
+     */
     private void songButtonCreator(Song song , ArrayList<Song> songs , String status) throws IOException {
         JButton listButton = new JButton();
         JButton deleteButton = new JButton();
@@ -182,6 +221,15 @@ public class CenterArea extends JPanel{
         });
         this.add(listButton);
     }
+
+    /**
+     * creat buttons for playlists
+     * set its settings and add
+     * them to the layout
+     * @param playlist
+     * @param arrayList
+     * @throws IOException
+     */
     private void playlistButtonCreator(Playlist playlist,ArrayList arrayList) throws IOException {
         JButton listButton = new JButton();
         JButton deleteButton = new JButton();
@@ -243,6 +291,14 @@ public class CenterArea extends JPanel{
         });
         this.add(listButton);
     }
+
+    /**
+     * set the icon for the button
+     * @param path path of icon
+     * @param btn
+     * @param size size of icon
+     * @throws IOException
+     */
     private void setImageIconForButton(String path, JButton btn ,int size) throws IOException {
         BufferedImage img = ImageIO.read(new File(path));
         BufferedImage finalImg = new BufferedImage(size,size,img.getType());
@@ -251,6 +307,14 @@ public class CenterArea extends JPanel{
         graphics2D.dispose();
         btn.setIcon(new ImageIcon(finalImg));
     }
+
+    /**
+     * sets artwork icon
+     * @param bytes the bytes of an image
+     * @param artWork the label for image to be set on
+     * @param size the size of icon
+     * @throws IOException
+     */
     private void setImageIconForArtWork(byte[] bytes , JLabel artWork,int size) throws IOException {
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         BufferedImage img = ImageIO.read(in);

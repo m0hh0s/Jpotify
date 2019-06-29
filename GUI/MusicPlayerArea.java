@@ -7,6 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * the Music player Area holds the play/pause , forward , backward
+ * and the buttons and components related to playing the song
+ *  @author Mohsen Hosseiny and Sattar Noee
+ *  @version 1.0
+ */
 public class MusicPlayerArea extends JPanel{
     private JSlider timeSlider = new JSlider(0,1000,0);
     private JSlider soundSlider = new JSlider();
@@ -29,7 +35,12 @@ public class MusicPlayerArea extends JPanel{
     private JPanel gridSongInfo = new JPanel(new GridLayout(2,1));
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
 
-
+    /**
+     * set the background and layout and calls
+     * the method to prepare this section to add
+     *
+     * @throws IOException
+     */
     public MusicPlayerArea() throws IOException {
         super();
         this.setLayout(new BorderLayout());
@@ -62,6 +73,13 @@ public class MusicPlayerArea extends JPanel{
         soundSlider.setMaximum(100);
         soundSlider.setMinimum(0);
     }
+
+    /**
+     * add buttons to button panel
+     * and set background
+     *
+     * @param backGroundColor
+     */
     private void prepareButtonPanelToAdd (Color backGroundColor){
         buttonPanel.add(replayButton);
         buttonPanel.add(backwardButton);
@@ -70,11 +88,22 @@ public class MusicPlayerArea extends JPanel{
         buttonPanel.add(addToPlayList);
         buttonPanel.setBackground(backGroundColor);
     }
+
+    /**
+     * add button panel to north panel
+     * @param backGroundColor
+     */
     private void prepareNorthPanelToAdd(Color backGroundColor) {
         northPanel.add(buttonPanel,BorderLayout.CENTER);
         northPanel.setBackground(backGroundColor);
 
     }
+
+    /**
+     * add timeSlider and the time labels
+     * to the south panel
+     * @param backGroundColor
+     */
     private void prepareSouthPanelToAdd(Color backGroundColor){
         southPanel.add(timePassed);
         southPanel.add(timeSlider);
@@ -82,30 +111,71 @@ public class MusicPlayerArea extends JPanel{
         southPanel.setBackground(backGroundColor);
 
     }
+
+    /**
+     * add song info to west panel
+     * @param backGroundColor
+     */
     private void prepareWestPanelToAdd(Color backGroundColor){
         westPanel.add(gridSongInfo,BorderLayout.NORTH);
         westPanel.setBackground(backGroundColor);
     }
+
+    /**
+     * add south and north panel to center panel
+     * @param backGroundColor
+     */
     private void prepareCenterPanelToAdd(Color backGroundColor){
         centerPanel.add(southPanel,BorderLayout.SOUTH);
         centerPanel.add(northPanel,BorderLayout.NORTH);
         centerPanel.setBackground(backGroundColor);
     }
+
+    /**
+     * set maximum size of gridSongInfo panel
+     * also adds its components and sets its
+     * background
+     * @param dimension
+     * @param backGroundColor
+     */
     private void prepareGridSongInfoPanelToAdd(Dimension dimension,Color backGroundColor){
         gridSongInfo.setMaximumSize(dimension);
         gridSongInfo.add(songName);
         gridSongInfo.add(songSinger);
         gridSongInfo.setBackground(backGroundColor);
     }
+
+    /**
+     * sets the labels font , forground and text
+     * @param label
+     * @param forGroundColor the color of label text
+     * @param text text of the label
+     * @param font font of the label
+     */
     private void prepareSongInfoToAdd(JLabel label,Color forGroundColor,String text,Font font){
         label.setForeground(forGroundColor);
         label.setText(text);
         label.setFont(font);
     }
+
+    /**
+     * set the size and background of slider
+     * @param slider
+     * @param backGroundColor the color of slider
+     * @param dimension the size of slider
+     */
     private void prepareSliderToAdd(JSlider slider,Color backGroundColor , Dimension dimension){
         slider.setBackground(backGroundColor);
         slider.setPreferredSize(dimension);
     }
+
+    /**
+     * set buttons setting and add icon to it
+     * @param btn
+     * @param path the path of icon
+     * @param size the size of button and icon
+     * @throws IOException
+     */
     public void prepareButtonToAdd(JButton btn,String path,int size) throws IOException {
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
@@ -113,9 +183,23 @@ public class MusicPlayerArea extends JPanel{
         setImageIconForButton(path,btn,size);
         btn.setBackground(NEAR_VERY_DARK_GRAY);
     }
+
+    /**
+     * set the labels forground
+     * @param label
+     * @param forGroundColor color of forground
+     */
     private void prepareLabelToAdd(JLabel label,Color forGroundColor){
         label.setForeground(forGroundColor);
     }
+
+    /**
+     * set the icon for the button
+     * @param path path of icon
+     * @param btn
+     * @param size size of icon
+     * @throws IOException
+     */
     private void setImageIconForButton(String path, JButton btn ,int size) throws IOException {
         BufferedImage img = ImageIO.read(new File(path));
         BufferedImage finalImg = getScaledInstance(img,size,size,RenderingHints.VALUE_INTERPOLATION_BICUBIC,true);
@@ -124,6 +208,7 @@ public class MusicPlayerArea extends JPanel{
         graphics2D.dispose();
         btn.setIcon(new ImageIcon(finalImg));
     }
+
     /**
      * Convenience method that returns a scaled instance of the
      * provided {@code BufferedImage}.
@@ -190,6 +275,14 @@ public class MusicPlayerArea extends JPanel{
 
         return ret;
     }
+
+    /**
+     * add Font to the program
+     *
+     * @param path
+     * @param size size of font
+     * @return
+     */
     private Font addFont(String path,float size)  {
         Font customFont = null;
         try {
@@ -204,6 +297,7 @@ public class MusicPlayerArea extends JPanel{
         ge.registerFont(customFont);
         return customFont;
     }
+
     public JSlider getTimeSlider() {
         return timeSlider;
     }
@@ -241,6 +335,4 @@ public class MusicPlayerArea extends JPanel{
     public JButton getMuteButton() {
         return muteButton;
     }
-
-
 }
