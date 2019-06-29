@@ -10,6 +10,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+/**
+ * the controller in which the Logic and GUI connect
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class Controller{
     private LoginPage loginPage;
     private JpotifyGUI jpotifyGUI;
@@ -17,6 +22,9 @@ public class Controller{
     private CenterArea centerArea;
     private boolean mute;
 
+    /**
+     * makes a new page of jpotifyGUI and login page
+     */
     public Controller(){
         loginPage = new LoginPage();
         try {
@@ -27,7 +35,12 @@ public class Controller{
         }
     }
 
+    /**
+     * add listener to the various parts
+     */
     public void setupJpotify(){
+
+        //add listener to login button
         loginPage.getLoginButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +58,8 @@ public class Controller{
                 SwingUtilities.updateComponentTreeUI(jpotifyGUI);
             }
         });
+
+        //add listener to the button to add song
         jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForSong().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,6 +68,8 @@ public class Controller{
                 SwingUtilities.updateComponentTreeUI(jpotifyGUI);
             }
         });
+
+        //add listener to the button to add playList
         jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForPlayList().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,6 +91,8 @@ public class Controller{
                 });
             }
         });
+
+        //add listener to the songs button in library
         jpotifyGUI.getLibraryAndPlayListArea().getSongs().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +108,8 @@ public class Controller{
                 }
             }
         });
+
+        //add listener to the playList button in library
         jpotifyGUI.getLibraryAndPlayListArea().getPlayListButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,6 +122,8 @@ public class Controller{
                 }
             }
         });
+
+        //add listener to the Albums button in library
         jpotifyGUI.getLibraryAndPlayListArea().getAlbums().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,6 +138,8 @@ public class Controller{
                 }
             }
         });
+
+        //add listener to the menu part in musicPlayer Area
         jpotifyGUI.getMusicPlayerArea().getAddToPlayList().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,24 +159,32 @@ public class Controller{
                 }
             }
         });
+
+        //add listener to the backward button
         jpotifyGUI.getMusicPlayerArea().getBackwardButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MusicPlayer.previousSong();
             }
         });
+
+        //add listener to the forward button
         jpotifyGUI.getMusicPlayerArea().getForwardButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MusicPlayer.nextSong();
             }
         });
+
+        //add listener to the replayButton
         jpotifyGUI.getMusicPlayerArea().getReplayButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MusicPlayer.changeLoopStatus();
             }
         });
+
+        //add listener to the play button
         jpotifyGUI.getMusicPlayerArea().getPlayButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,12 +202,16 @@ public class Controller{
                 SwingUtilities.updateComponentTreeUI(jpotifyGUI);
             }
         });
+
+        //add listener to the sound slider
         jpotifyGUI.getMusicPlayerArea().getSoundSlider().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 SoundControl.setSystemVolume(jpotifyGUI.getMusicPlayerArea().getSoundSlider().getValue());
             }
         });
+
+        //add listener to the time slider
         jpotifyGUI.getMusicPlayerArea().getTimeSlider().addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -189,6 +226,8 @@ public class Controller{
                 }
             }
         });
+
+        //add listener to the mute button
         jpotifyGUI.getMusicPlayerArea().getMuteButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -212,6 +251,8 @@ public class Controller{
 
             }
         });
+
+        //add listener to save the user
         jpotifyGUI.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
