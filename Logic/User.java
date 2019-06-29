@@ -2,7 +2,8 @@ package Logic;
 
 import java.io.Serializable;
 /**
- * @author Mohsen Hosseiny and Sattar Noee
+ * holds the info about a user
+ * @author Mohsen Hosseini and Sattar Noee
  * @version 1.0
  */
 public class User implements Serializable {
@@ -14,6 +15,10 @@ public class User implements Serializable {
         return instance;
     }
 
+    /**
+     * sets the user instance(which is a user)
+     * @param instance
+     */
     public static void setInstance(User instance) {
         User.instance = instance;
     }
@@ -35,6 +40,11 @@ public class User implements Serializable {
 //        NetworkHandler.sendData(sdr);
 //        NetworkHandler.recieveData(rdr);
 //    }
+
+    /**
+     * sets the username
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }

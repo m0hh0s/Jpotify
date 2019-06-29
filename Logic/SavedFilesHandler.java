@@ -2,10 +2,15 @@ package Logic;
 
 import java.io.*;
 /**
- * @author Mohsen Hosseiny and Sattar Noee
+ * this class saves and loads the info of a certain user
+ * @author Mohsen Hosseini and Sattar Noee
  * @version 1.0
  */
 public class SavedFilesHandler {
+    /**
+     * if the user is new it makes a File saving its data
+     * @param user
+     */
     public static void saveUserData(User user){
         if (user == null)
             return;
@@ -28,6 +33,13 @@ public class SavedFilesHandler {
             }
         }
     }
+
+    /**
+     * loads the info of a certain user
+     * @param username
+     * @return the user
+     * @throws IOException
+     */
     public static User loadUserData (String username) throws IOException{
         User tempUser = null;
         FileInputStream fis = null;

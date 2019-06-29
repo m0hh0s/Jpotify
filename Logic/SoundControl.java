@@ -2,10 +2,15 @@ package Logic;
 
 import java.io.IOException;
 /**
- * @author Mohsen Hosseiny and Sattar Noee
+ * controls the sound of the system and song
+ * @author Mohsen Hosseini and Sattar Noee
  * @version 1.0
  */
 public class SoundControl {
+    /**
+     * sets the system volume to the volume
+     * @param volume desired volume
+     */
     public static void setSystemVolume(int volume) {
         if(volume < 0 || volume > 100)
         {
@@ -30,6 +35,10 @@ public class SoundControl {
             }
         }
     }
+
+    /**
+     * mutes the sound
+     */
     public static void mute(){
         Runtime rt = Runtime.getRuntime();
         Process pr;

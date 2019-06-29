@@ -11,7 +11,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
- * @author Mohsen Hosseiny and Sattar Noee
+ * plays the music and does the action of musicPlayerArea buttons
+ * @author Mohsen Hosseini and Sattar Noee
  * @version 1.0
  */
 public class MusicPlayer {
@@ -38,10 +39,18 @@ public class MusicPlayer {
     public static boolean isPlaying() {
         return isPlaying;
     }
+
+    /**
+     * pause the music
+     */
     public static void pause() {
         onPause = true;
         isPlaying = false;
     }
+
+    /**
+     * resumes the music
+     */
     public static void resume() {
         if (player != null) {
             onPause = false;
@@ -51,9 +60,21 @@ public class MusicPlayer {
             }
         }
     }
+
+    /**
+     * if on loop it changes it to not loop
+     * if not on loop it changes it to loop
+     */
     public static void changeLoopStatus(){
         isOnLoop = !isOnLoop;
     }
+
+    /**
+     * starts to play a song and the songs after it on a list
+     * if on loop then loop around the list
+     * @param startingSong
+     * @param songsToBePlayed
+     */
     public static void playAList(Song startingSong ,ArrayList<Song> songsToBePlayed) {
         if (player != null && isPlaying){
             playingThread.stop();
@@ -127,6 +148,11 @@ public class MusicPlayer {
         });
         playingThread.start();
     }
+
+    /**
+     * the seek point of music player
+     * @param seekPoint
+     */
     public static void seek(int seekPoint) {
         try {
             bis.reset();
@@ -135,11 +161,19 @@ public class MusicPlayer {
             e.printStackTrace();
         }
     }
+
+    /**
+     * goes to next song
+     */
     public static void nextSong(){
         goToNextSong = true;
         if (onPause)
             resume();
     }
+
+    /**
+     * goes to previous song
+     */
     public static void previousSong(){
         goToPreviousSong = true;
         if (onPause)
@@ -148,9 +182,19 @@ public class MusicPlayer {
     public static JpotifyGUI getJpotifyGUI() {
         return jpotifyGUI;
     }
+
+    /**
+     * sets the jpotifyGUI
+     * @param jpotifyGUI
+     */
     public static void setJpotifyGUI(JpotifyGUI jpotifyGUI) {
         MusicPlayer.jpotifyGUI = jpotifyGUI;
     }
+
+    /**
+     * if on pause resume
+     * if on resume pause
+     */
     public static void pauseOrResume(){
         if (onPause)
             resume();

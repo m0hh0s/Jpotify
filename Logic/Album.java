@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * the class to hold the informations about the album
- * @author Mohsen Hosseiny and Sattar Noee
+ * @author Mohsen Hosseini and Sattar Noee
  * @version 1.0
  */
 public class Album {

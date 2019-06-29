@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 /**
  * holds arrayList of songs ,albums and playLists
- * @author Mohsen Hosseiny and Sattar Noee
+ * @author Mohsen Hosseini and Sattar Noee
  * @version 1.0
  */
 public class MusicLibrary implements Serializable {
