@@ -13,6 +13,7 @@ import org.jaudiotagger.tag.TagException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -56,22 +57,23 @@ public class MusicPlayer {
     public static void changeLoopStatus(){
         isOnLoop = !isOnLoop;
     }
-    public static void stop(){
-        if (player != null){
-            player.close();
-            onPause = true;
-            isPlaying = false;
-        }
-    }
     public static void playAList(Song startingSong ,ArrayList<Song> songsToBePlayed) {
+        if (player != null && isPlaying){
+            playingThread.stop();
+        }
+        onPause = false;
+        isPlaying = true;
+        try {
+            jpotifyGUI.getMusicPlayerArea().prepareButtonToAdd(jpotifyGUI.getMusicPlayerArea().getPlayButton() , "Icons/pauseIconWhite.png" ,40);
+            SwingUtilities.updateComponentTreeUI(jpotifyGUI);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         playingThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = songsToBePlayed.indexOf(startingSong) ; i < songsToBePlayed.size() ; i++) {
                     try {
-                        stop();
-                        onPause = false;
-                        isPlaying = true;
                         currentlyPlaying = songsToBePlayed.get(i);
                         fis = new FileInputStream(currentlyPlaying.getSongAddress());
                         bis = new BufferedInputStream(fis);
@@ -146,15 +148,12 @@ public class MusicPlayer {
         if (onPause)
             resume();
     }
-
     public static JpotifyGUI getJpotifyGUI() {
         return jpotifyGUI;
     }
-
     public static void setJpotifyGUI(JpotifyGUI jpotifyGUI) {
         MusicPlayer.jpotifyGUI = jpotifyGUI;
     }
-
     public static void pauseOrResume(){
         if (onPause)
             resume();
