@@ -92,6 +92,7 @@ public class MusicLibrary implements Serializable {
         albums = new ArrayList<>();
         for (Song song : songs)
             song.updateTag(this);
+        sortSongs();
     }
     
 }

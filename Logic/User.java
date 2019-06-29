@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
     private static User instance = null;
+    private String username;
+    private MusicLibrary musicLibrary = new MusicLibrary();
 
     public static User getInstance(){
         return instance;
@@ -14,9 +16,6 @@ public class User implements Serializable {
     public static void setInstance(User instance) {
         User.instance = instance;
     }
-
-    private String username;
-    private MusicLibrary musicLibrary = new MusicLibrary();
 //    private ArrayList<Socket> friends = new ArrayList<>();
 //
 //    public ArrayList<Socket> getFriends() {
