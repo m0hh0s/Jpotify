@@ -8,7 +8,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
-
+/**
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class Song implements Serializable {
     private String songAddress;
     private long dateListenedTo = 0;

@@ -1,7 +1,10 @@
 package Logic;
 
 import java.io.IOException;
-
+/**
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class SoundControl {
     public static void setSystemVolume(int volume) {
         if(volume < 0 || volume > 100)

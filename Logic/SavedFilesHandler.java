@@ -1,7 +1,10 @@
 package Logic;
 
 import java.io.*;
-
+/**
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class SavedFilesHandler {
     public static void saveUserData(User user){
         if (user == null)

@@ -3,20 +3,17 @@ package Logic;
 import GUI.JpotifyGUI;
 import Logic.jl.decoder.JavaLayerException;
 import Logic.jl.player.advanced.AdvancedPlayer;
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class MusicPlayer {
     private static volatile AdvancedPlayer player = null;
     private static volatile FileInputStream fis = null;
