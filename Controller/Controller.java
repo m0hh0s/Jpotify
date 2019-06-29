@@ -37,6 +37,7 @@ public class Controller{
                 User.setInstance(user);
                 loginPage.setVisible(false);
                 jpotifyGUI.setVisible(true);
+                jpotifyGUI.setId(user.getUsername());
                 jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().setPlatlists(user.getMusicLibrary().getPlaylists());
             }
         });
