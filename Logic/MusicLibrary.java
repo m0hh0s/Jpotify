@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
 public class MusicLibrary implements Serializable {
     private ArrayList<Song> songs;
     private transient ArrayList<Album> albums;
