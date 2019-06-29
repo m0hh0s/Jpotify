@@ -87,6 +87,9 @@ public class JpotifyGUI extends JFrame {
     public void changeCenterArea (CenterArea centerArea){
         centerScrollPane.setViewportView(centerArea);
     }
+    public void setId (String id){
+        this.id.setText(id+"   ");
+    }
     public LibraryAndPlayListArea getLibraryAndPlayListArea() {
         return libraryAndPlayListArea;
     }
