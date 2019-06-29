@@ -54,7 +54,11 @@ public class Controller{
                 loginPage.setVisible(false);
                 jpotifyGUI.setVisible(true);
                 jpotifyGUI.setId(user.getUsername());
+//<<<<<<< HEAD
                 jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().setPlayLists(user.getMusicLibrary().getPlaylists());
+//=======
+                jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().setPlayLists(user.getMusicLibrary().getPlaylists());
+//>>>>>>> added the id in the header part
                 SwingUtilities.updateComponentTreeUI(jpotifyGUI);
             }
         });
