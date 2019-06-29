@@ -18,6 +18,10 @@ public class CenterArea extends JPanel{
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
     private Playlist playlistToRemoveFrom = null;
 
+    public CenterArea(Playlist playlistToRemoveFrom) throws IOException {
+        this();
+        this.playlistToRemoveFrom = playlistToRemoveFrom;
+    }
     public CenterArea() throws IOException {
         super();
         this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
