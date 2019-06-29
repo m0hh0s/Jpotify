@@ -11,6 +11,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * the class JpotifyGUI makes the main frame of the
+ * project and also keeps the data of the component
+ * within
+ *
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
+
 public class JpotifyGUI extends JFrame {
     private final String WINDOWS_TITLE = "Jpotify";
     private final int WIDTH = 1132, HEIGHT = 700;
@@ -33,6 +42,14 @@ public class JpotifyGUI extends JFrame {
     private Color NEAR_BLACK = new Color(28,28,28);
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
 
+    /**
+     * the constructor makes makes the components within and
+     * set its sizes and background color also set the size of
+     * the frame and the title
+     *
+     * @throws IOException
+     * @throws FontFormatException
+     */
     public JpotifyGUI() throws IOException, FontFormatException {
         super();
         //playLists = libraryAndPlayListArea.getPlayLists().getPlayLists();
@@ -70,6 +87,14 @@ public class JpotifyGUI extends JFrame {
         this.add(centerAndWestArea);
 //        this.setVisible(true);
     }
+
+    /**
+     * adds a font to the class
+     *
+     * @param path the path of the font FIle
+     * @param size the size of the font which we want to make
+     * @return the font with the size and the path
+     */
     private Font addFont(String path,float size)  {
         Font customFont = null;
         try {
@@ -84,37 +109,61 @@ public class JpotifyGUI extends JFrame {
         ge.registerFont(customFont);
         return customFont;
     }
+
+    /**
+     * changes the centerArea
+     *
+     * @param centerArea the new centerArea
+     */
     public void changeCenterArea (CenterArea centerArea){
         centerScrollPane.setViewportView(centerArea);
     }
+
+    /**
+     * set the id
+     *
+     * @param id the label of the north panel
+     */
     public void setId (String id){
         this.id.setText(id+"   ");
     }
+
+    /**
+     *
+     * @return the library section
+     */
     public LibraryAndPlayListArea getLibraryAndPlayListArea() {
         return libraryAndPlayListArea;
     }
+
+    /**
+     *
+     * @return the music player section
+     */
     public MusicPlayerArea getMusicPlayerArea() {
         return musicPlayerArea;
     }
-    public FriendListArea getFriendListArea() {
-        return friendListArea;
-    }
-    public JScrollPane getFriendScrollPane() {
-        return friendScrollPane;
-    }
-    public JScrollPane getLibraryScrollPane() {
-        return libraryScrollPane;
-    }
-    public ArrayList<Playlist> getPlayLists() {
-        return playLists;
-    }
-    public CenterArea getCenterArea() {
-        return centerArea;
-    }
-    public JLabel getFriendAreaHeader() {
-        return friendAreaHeader;
-    }
-    public JPanel getEastArea() {
-        return eastArea;
-    }
+
+
+//    public FriendListArea getFriendListArea() {
+//        return friendListArea;
+//    }
+//    public JScrollPane getFriendScrollPane() {
+//        return friendScrollPane;
+//    }
+//    public JScrollPane getLibraryScrollPane() {
+//        return libraryScrollPane;
+//    }
+//    public ArrayList<Playlist> getPlayLists() {
+//        return playLists;
+//    }
+//    public CenterArea getCenterArea() {
+//        return centerArea;
+//    }
+//    public JLabel getFriendAreaHeader() {
+//        return friendAreaHeader;
+//    }
+//    public JPanel getEastArea() {
+//        return eastArea;
+//    }
 }

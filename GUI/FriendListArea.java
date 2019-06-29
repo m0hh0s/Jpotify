@@ -8,6 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * the Friend section and its
+ * component in the east side
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class FriendListArea extends JPanel {
     private BoxLayout boxLayout = new BoxLayout(this,BoxLayout.PAGE_AXIS);
     private ArrayList<JButton> friendsButtons = new ArrayList<>();
@@ -15,6 +21,10 @@ public class FriendListArea extends JPanel {
     private ImageIcon onlineIcon = new ImageIcon("Icons/onlineIcon.png");
     private Color NEAR_BLACK = new Color(28,28,28);
 
+    /**
+     * sets the layout and calls to the methods
+     * @throws IOException
+     */
     public FriendListArea() throws IOException {
         super();
         this.setLayout(boxLayout);
@@ -27,6 +37,13 @@ public class FriendListArea extends JPanel {
         addFriend(tmp);
         prepareButtonToAdd(friends);
     }
+
+    /**
+     * make a button for the friend based
+     * on being online or offline
+     * @param friends
+     * @throws IOException
+     */
     private void prepareButtonToAdd(ArrayList<Friend> friends) throws IOException {
         Font buttonFont = new Font("optima",Font.PLAIN,12);
         for(Friend frnd:friends) {
@@ -51,11 +68,24 @@ public class FriendListArea extends JPanel {
             friendsButtons.add(temp);
         }
     }
+
+    /**
+     * set the icon for the button
+     * @param path path of icon
+     * @param btn
+     * @param size size of icon
+     * @throws IOException
+     */
     private void setImageIconForButton(String path, JButton btn ,int size) throws IOException {
         BufferedImage img = ImageIO.read(new File(path));
         Image image = img.getScaledInstance(size,size,Image.SCALE_SMOOTH);
         btn.setIcon(new ImageIcon(image));
     }
+
+    /**
+     * add friend to the arrayList of friends
+     * @param friend
+     */
     private void addFriend(Friend friend){
         friends.add(friend);
     }

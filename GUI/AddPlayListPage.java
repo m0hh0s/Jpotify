@@ -2,7 +2,11 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * the Add playList page
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class AddPlayListPage extends JFrame {
     private final String WINDOWS_TITLE = "Add PlayList";
     private final int WIDTH = 500, HEIGHT = 400;
@@ -15,6 +19,12 @@ public class AddPlayListPage extends JFrame {
     private JPanel buttonPanel = new JPanel(new GridLayout(1,1));
     private JPanel motherPanel = new JPanel();
     private BoxLayout boxLayout = new BoxLayout(motherPanel,BoxLayout.PAGE_AXIS);
+
+    /**
+     * set the layout ,size and title of the frame
+     * set the settings for button and add components
+     * to the panels
+     */
     public AddPlayListPage() {
         super();
         this.setLayout(new BorderLayout());
