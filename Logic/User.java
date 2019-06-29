@@ -1,9 +1,10 @@
 package Logic;
 
 import java.io.Serializable;
-import java.net.Socket;
-import java.util.ArrayList;
-
+/**
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class User implements Serializable {
     private static User instance = null;
     private String username;

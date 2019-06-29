@@ -2,8 +2,10 @@ package Logic;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-
+/**
+ * @author Mohsen Hosseiny and Sattar Noee
+ * @version 1.0
+ */
 public class Playlist implements Serializable {
     private String name;
     private ArrayList<Song> songs;
