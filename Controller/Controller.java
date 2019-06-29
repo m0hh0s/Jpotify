@@ -48,6 +48,7 @@ public class Controller{
         jpotifyGUI.getLibraryAndPlayListArea().getPlusButtonForSong().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 user.getMusicLibrary().addSong();
                 SwingUtilities.updateComponentTreeUI(jpotifyGUI);
             }
@@ -59,11 +60,16 @@ public class Controller{
                 app.getAddPlayListButton().addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Playlist playlist = new Playlist(app.getPlayListName().getText());
-                        //user.getMusicLibrary().addPlaylist(playlist);
-                        jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().addPlayList(playlist);
-                        app.setVisible(false);
-                        SwingUtilities.updateComponentTreeUI(jpotifyGUI);
+                        int result = jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().searchByName(app.getPlayListName().getText());
+                        if(result == 0) {
+                            Playlist playlist = new Playlist(app.getPlayListName().getText());
+                            //user.getMusicLibrary().addPlaylist(playlist);
+                            jpotifyGUI.getLibraryAndPlayListArea().getPlayLists().addPlayList(playlist);
+                            app.setVisible(false);
+                            SwingUtilities.updateComponentTreeUI(jpotifyGUI);
+                        }
+                        else
+                            app.setVisible(false);
                     }
                 });
             }
