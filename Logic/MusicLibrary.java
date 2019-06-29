@@ -5,7 +5,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class MusicLibrary implements Serializable {
@@ -82,7 +81,9 @@ public class MusicLibrary implements Serializable {
             for (File file : files){
                 path = file.getAbsolutePath();
                 Song tempSong = new Song(path , this);
-                songs.add(tempSong);
+                int result = compareSong(tempSong);
+                if(result == 0)
+                    songs.add(tempSong);
             }
         }
     }
@@ -93,5 +94,11 @@ public class MusicLibrary implements Serializable {
             song.updateTag(this);
         sortSongs();
     }
-    
+    private int compareSong (Song newSong){
+        for(Song oldSong:songs){
+            if(oldSong.equals(newSong))
+                return 1;
+        }
+        return 0;
+    }
 }
