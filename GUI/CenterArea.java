@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class CenterArea extends JPanel{
@@ -26,7 +25,7 @@ public class CenterArea extends JPanel{
         this.add(Box.createRigidArea(new Dimension(40,10)));
     }
 
-    public void preparePlayListsToAdd(ArrayList arrayList , String status) throws IOException {
+    public void preparePlayListsToAdd(ArrayList arrayList , String status ) throws IOException {
         if (arrayList.get(0) instanceof Song){
             for (Object obj : arrayList){
                 Song song = (Song) obj;
@@ -40,7 +39,7 @@ public class CenterArea extends JPanel{
         } else if (arrayList.get(0) instanceof Playlist){
             for (Object obj : arrayList){
                 Playlist playlist = (Playlist) obj;
-                playlistButtonCreator(playlist);
+                playlistButtonCreator(playlist,arrayList);
             }
         }
     }
@@ -179,13 +178,10 @@ public class CenterArea extends JPanel{
         });
         this.add(listButton);
     }
-    private void playlistButtonCreator(Playlist playlist) throws IOException {
+    private void playlistButtonCreator(Playlist playlist,ArrayList arrayList) throws IOException {
         JButton listButton = new JButton();
+        JButton deleteButton = new JButton();
 
-        listButton.setLayout(new BorderLayout());
-        listButton.setMaximumSize(new Dimension(700,70));
-        listButton.setBorderPainted(false);
-        listButton.setFocusPainted(false);
 
         JPanel labelPanel = new JPanel(new BorderLayout());
         JPanel motherPanel = new JPanel(new BorderLayout());
@@ -193,6 +189,23 @@ public class CenterArea extends JPanel{
         JLabel artWork = new JLabel();
         Font topLabelFont = new Font("optima",Font.PLAIN,14);
 
+        listButton.setLayout(new BorderLayout());
+        listButton.setMaximumSize(new Dimension(700,70));
+        listButton.setBorderPainted(false);
+        listButton.setFocusPainted(false);
+
+        setImageIconForButton("Icons/crossIcon.png",deleteButton,28);
+        deleteButton.setMaximumSize(new Dimension(28,28));
+        deleteButton.setBorderPainted(false);
+        deleteButton.setFocusPainted(false);
+        deleteButton.setBackground(NEAR_VERY_DARK_GRAY);
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(playlist.getName()!="Favourites" && playlist.getName()!="Shared Playlist")
+                arrayList.remove(playlist);
+            }
+        });
 
         topLabel.setText("  " + playlist.getName());
         topLabel.setFont(topLabelFont);
@@ -205,6 +218,7 @@ public class CenterArea extends JPanel{
         motherPanel.add(labelPanel,BorderLayout.WEST);
         listButton.add(motherPanel);
         listButton.add(artWork,BorderLayout.WEST);
+        listButton.add(deleteButton,BorderLayout.EAST);
         motherPanel.setBackground(NEAR_VERY_DARK_GRAY);
         labelPanel.setBackground(NEAR_VERY_DARK_GRAY);
         listButton.setBackground(NEAR_VERY_DARK_GRAY);
