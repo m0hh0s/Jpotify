@@ -61,4 +61,13 @@ public class PlayLists extends JPanel {
         this.playLists = playLists;
         addPlayListButton();
     }
+
+    public int searchByName(String name){
+        for(Playlist playlist:playLists){
+            if(playlist.getName().equals(name)){
+                return 1;
+            }
+        }
+        return 0;
+    }
 }
