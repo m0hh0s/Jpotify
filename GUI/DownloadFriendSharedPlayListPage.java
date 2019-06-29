@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * the page to download the friends
+ * shared playList
+ */
 public class DownloadFriendSharedPlayListPage extends JFrame {
     private final String WINDOWS_TITLE = "Friends";
     private final int WIDTH = 500, HEIGHT = 400;
@@ -16,6 +20,11 @@ public class DownloadFriendSharedPlayListPage extends JFrame {
     private BoxLayout boxLayout = new BoxLayout(motherPanel,BoxLayout.PAGE_AXIS);
     private Color VERY_DARK_GRAY = new Color(40,40,40);
     private Color NEAR_VERY_DARK_GRAY = new Color(50,50,50);
+
+    /**
+     * set the users and makes button for each friend
+     * @param users
+     */
     public DownloadFriendSharedPlayListPage(ArrayList<User> users){
         super();
         this.setLayout(new BorderLayout());
